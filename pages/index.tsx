@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
-import Image from "next/image";
+import { admin } from "../lib/whitelist";
 import AccountSwitcher from "../components/AccountSwitcher";
 import Lands from "../components/Lands";
 import Summary from "../components/Summary";
@@ -34,15 +34,16 @@ export default function Home() {
         </Head>
         <AuthCheck>
           <div className="container mx-auto">
-            {selectedAccount}
             <br />
-            <Summary />
-            <AccountSwitcher
-              accounts={accounts && Object.values(accounts)}
-              setSelectedAccount={setSelectedAccount}
-              selectedAccount={selectedAccount}
-            />
-            {selectedAccount && <Lands lands={lands} plants={plants} />}
+            {admin.includes(user?.email) && <Summary />}
+            {admin.includes(user?.email) && (
+              <AccountSwitcher
+                accounts={accounts && Object.values(accounts)}
+                setSelectedAccount={setSelectedAccount}
+                selectedAccount={selectedAccount}
+              />
+            )}
+            {selectedAccount && <Lands lands={lands} plants={plants} user={user} />}
           </div>
         </AuthCheck>
       </div>

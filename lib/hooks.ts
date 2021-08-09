@@ -54,9 +54,13 @@ export function getUserLands(
   user: firebase.User | null | undefined
 ): [CommonCollection<Land>, CommonCollection<Plant>] {
   const querySnapshot = firestore
-    .doc(`users/${user?.uid}`)
+    .doc(`users/LTd19OPAM9P1hk9BIrqwjLUezyH3`)
     .collection("lands")
     .orderBy("createdAt", "asc");
+  // const querySnapshot = firestore
+  //   .doc(`users/${user?.uid}`)
+  //   .collection("lands")
+  //   .orderBy("createdAt", "asc");
 
   const [collection, loading, error] = useCollectionData(querySnapshot, {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -78,7 +82,10 @@ export function getLandPlants(
 ): [CommonCollection<Plant>, boolean, firebase.FirebaseError | undefined] {
   const querySnapshot = firestore
     .collectionGroup("plants")
-    .where("userId", "==", user?.uid || null);
+    .where("userId", "==", "LTd19OPAM9P1hk9BIrqwjLUezyH3");
+  // const querySnapshot = firestore
+  //   .collectionGroup("plants")
+  //   .where("userId", "==", user?.uid || null);
 
   const [collection, loading, error] = useCollectionData(querySnapshot, {
     snapshotListenOptions: { includeMetadataChanges: true },

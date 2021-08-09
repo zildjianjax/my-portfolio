@@ -8,12 +8,15 @@ import {
 import AddPlant from "./AddPlant";
 import moment from "moment";
 import _ from "lodash";
+import firebase from "firebase"
+import { admin } from "../lib/whitelist"
 import { getTimeDiff, stripAddress } from "../lib/helpers";
 
 const Land: React.FC<{
   land: LandInterface | Common;
   plants: CommonCollection<Plant>;
-}> = ({ land, plants }) => {
+  user: firebase.User | null | undefined;
+}> = ({ land, plants, user }) => {
   const [landPlants, setLandPlants] = useState<LandInterface[] | Common[]>([]);
   const [firstRow, setFirstRow] = useState<LandInterface | Common>();
   const [plantCount, setPlantCount] = useState<number>(0);
@@ -72,7 +75,7 @@ const Land: React.FC<{
               </a>
               <span>X: {land.x}, Y: {land.y}</span>
             </div>
-            <AddPlant landId={land.id} />
+            {admin.includes(user?.email) && <AddPlant landId={land.id} />}
           </div>
         </th>
         <td>{firstRow && displayTimer(firstRow)}</td>

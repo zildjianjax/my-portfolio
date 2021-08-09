@@ -1,14 +1,12 @@
 import { auth, firestore, googleAuthProvider } from "../../lib/firebase";
 import React from "react";
 import Alert from "sweetalert2";
+import { admin, guest } from "../../lib/whitelist"
 
 const Google = () => {
   const signInWithGoogle = async () => {
     const user = await auth.signInWithPopup(googleAuthProvider);
-    const whitelist: string[] | undefined[] | null[] = [
-      "zildjianjaxolis@gmail.com",
-      "dayanaracana@gmail.com",
-    ];
+    const whitelist: (string | undefined| null)[] = [...admin, ...guest];
     if (!whitelist.includes(user.user?.email as string)) {
       auth.signOut();
       Alert.fire("Oops!", "Unauthorized Access.", "error");
