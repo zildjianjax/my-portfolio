@@ -58,7 +58,7 @@ const Lands: React.FC<{
                     </a>
                     <AddPlant landId={land.id} />
                   </th>
-                  <td>{firstRow?.differenceToNextTime}</td>
+                  <td>{moment(firstRow?.resetTime).format('hh:mm:ss a')} ({firstRow?.differenceToNextTime})</td>
                   <td>{firstRow?.page}</td>
                   <td>{firstRow?.card}</td>
                   <td>{firstRow?.element}</td>
@@ -71,7 +71,7 @@ const Lands: React.FC<{
                       key={plant?.readableId}
                       className={`${plant.hasRecentlyPassed && "bg-green-100"}`}
                     >
-                      <td>{plant?.differenceToNextTime}</td>
+                      <td>{moment(plant?.resetTime).format('hh:mm:ss a')} ({plant?.differenceToNextTime})</td>
                       <td>{plant?.page}</td>
                       <td>{plant?.card}</td>
                       <td>{plant?.element}</td>
