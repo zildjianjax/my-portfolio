@@ -29,15 +29,17 @@ const ImportJSON = () => {
     handleSubmit,
     reset,
     watch,
+    setValue,
     formState: { errors },
   } = useForm();
-  const watchJSON = watch("json");
+  const page = watch("page");
 
   const onSubmit: SubmitHandler<{ json: string }> = async (formData) => {
     console.log({ ...formData, user: user?.uid });
     let res = await postData("/api/import", { ...formData, user: user?.uid });
     Alert.fire("", "Successfully Imported", "success").then(() => {
-      reset();
+      reset({ json: "" });
+      setValue("page", parseInt(page) + 1);
       // handleClose();
     });
   };
