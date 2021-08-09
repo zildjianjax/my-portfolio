@@ -10,8 +10,8 @@ const Tools = () => {
             <Image
               src="/img/water.png"
               alt="Landscape picture"
-              width={'auto'}
-              height={'auto'}
+              width={50}
+              height={50}
             />
           </div>
           <span className="text-blue-500 font-bold">15/15</span>
@@ -21,8 +21,8 @@ const Tools = () => {
             <Image
               src="/img/scarecrow.png"
               alt="Landscape picture"
-              width={'auto'}
-              height={'auto'}
+              width={50}
+              height={50}
             />
           </div>
           <span className="font-bold">5/5</span>

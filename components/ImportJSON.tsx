@@ -10,7 +10,7 @@ import {
 import Alert from "sweetalert2";
 import { SubmitHandler, useForm, UseFormHandleSubmit } from "react-hook-form";
 import { UserContext } from "../lib/context";
-import { postData } from "../lib/api"
+import { postData } from "../lib/api";
 
 const ImportJSON = () => {
   const { user } = useContext(UserContext);
@@ -33,11 +33,14 @@ const ImportJSON = () => {
   } = useForm();
   const watchJSON = watch("json");
 
-  const onSubmit:  SubmitHandler<{ json: string }> = async (formData) => {
-    console.log({...formData, user: user?.uid})
-    let res = await postData("/api/import", {...formData, user: user?.uid});
-    console.log(res);
-  }
+  const onSubmit: SubmitHandler<{ json: string }> = async (formData) => {
+    console.log({ ...formData, user: user?.uid });
+    let res = await postData("/api/import", { ...formData, user: user?.uid });
+    Alert.fire("", "Successfully Imported", "success").then(() => {
+      reset();
+      handleClose();
+    });
+  };
 
   return (
     <div>
@@ -52,11 +55,16 @@ const ImportJSON = () => {
               <h2 className="font-medium text-xl">Import JSON</h2>
             </ModalHeader>
             <ModalBody>
+              <label className="font-medium text-sm">Page:</label>
+              <input
+                className="border p-2 block rounded"
+                type="text"
+                {...register("page")}
+              />
               <textarea
-                className="border h-96 p-2 rounded w-full"
+                className="border h-96 p-2 rounded w-full mt-4"
                 {...register("json")}
               ></textarea>
-              <input type="text" {...register("page")} />
             </ModalBody>
             <ModalFooter>
               <button type="submit" className="btn btn-success">
