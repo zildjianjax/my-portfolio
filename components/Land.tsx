@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Common,
   CommonCollection,
@@ -19,7 +19,7 @@ const Land: React.FC<{
   const [plantCount, setPlantCount] = useState<number>(0);
   const [timer, steTimer] = useState<number>(0);
 
-  let interval: number;
+  let interval: { current: NodeJS.Timeout | null } = useRef(null);
 
   const generateHourDiff = () => {
     let landPlantsArray: Plant[] | Common[] =
@@ -41,12 +41,11 @@ const Land: React.FC<{
 
   useEffect(() => {
     generateHourDiff();
-
-    interval = window.setInterval(() => {
+    interval.current = setInterval(() => {
       steTimer(timer + 1);
     }, 1000);
     return () => {
-      clearInterval(interval);
+      clearInterval(interval.current as NodeJS.Timeout);
     };
   }, [plants, timer]);
 
@@ -62,23 +61,26 @@ const Land: React.FC<{
       <tr className={`${firstRow?.isFiveMinutesRemaining && "has-passed"}`}>
         <th rowSpan={plantCount} className="align-top">
           <div className="flex items-center space-x-3">
-            <a
-              href={`https://marketplace.plantvsundead.com/farm/other/${land.address}`}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-500 underline"
-            >
-              {stripAddress(land.address)}
-            </a>
+            <div className="flex flex-col">
+              <a
+                href={`https://marketplace.plantvsundead.com/farm/other/${land.address}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-500 underline"
+              >
+                {stripAddress(land.address)}
+              </a>
+              <span>X: {land.x}, Y: {land.y}</span>
+            </div>
             <AddPlant landId={land.id} />
           </div>
         </th>
-        <td>{displayTimer(firstRow)}</td>
+        <td>{firstRow && displayTimer(firstRow)}</td>
         <td>{firstRow?.page}</td>
         <td>{firstRow?.card}</td>
         <td>{firstRow?.element}</td>
         <td>{firstRow?.readableId}</td>
-        <td>Skip, Done</td>
+        <td>{firstRow && `Skip, Done`}</td>
       </tr>
       {plants &&
         landPlants.map((plant) => (

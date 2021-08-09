@@ -10,13 +10,6 @@ const Lands: React.FC<{
   lands: CommonCollection<LandInterface>;
   plants: CommonCollection<Plant>;
 }> = ({ lands, plants }) => {
-  let interval: number;
-  useEffect(() => {
-    interval = window.setInterval(() => {}, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
   return (
     <table className="mt-5">
       <thead>
@@ -42,7 +35,7 @@ const Lands: React.FC<{
       <tbody>
         {lands &&
           Object.values(lands).map((land) => (
-            <Land land={land} plants={plants} />
+            <Land key={land.id} land={land} plants={plants} />
           ))}
       </tbody>
     </table>
