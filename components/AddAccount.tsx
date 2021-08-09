@@ -7,13 +7,13 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "./Modal";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { firestore, serverTimestamp } from "../lib/firebase";
 import { UserContext } from "../lib/context";
 import { randomBytes } from "crypto";
 import Alert from "sweetalert2";
 
-const AddAccount = () => {  
+const AddAccount = () => {
   const { user } = useContext(UserContext);
 
   const [isActive, setIsActive] = useState(false);
@@ -29,11 +29,13 @@ const AddAccount = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<{
+    name: string;
+  }> = async (data) => {
     const account_id = randomBytes(20).toString("hex");
 
     const userDoc = firestore
-      .doc(`users/${user.uid}`)
+      .doc(`users/${user?.uid}`)
       .collection("accounts")
       .doc(account_id);
     await userDoc.set({

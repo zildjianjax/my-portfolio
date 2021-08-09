@@ -1,11 +1,12 @@
-import React from "react";
+import React, { ChangeEventHandler, Dispatch, EventHandler, SetStateAction, SyntheticEvent } from "react";
+import { Account, Common } from "../lib/interface";
 import AddAccount from "./AddAccount";
 import AddLand from "./AddLand";
 import ImportJSON from "./ImportJSON";
 import Tools from "./Tools";
 
-const AccountSwitcher = ({ accounts, setSelectedAccount, selectedAccount }) => {
-  const handleAccountChange = (e) => {
+const AccountSwitcher = ({ accounts, setSelectedAccount, selectedAccount }: { accounts: Account[] | Common[], setSelectedAccount: Dispatch<SetStateAction<string>>, selectedAccount: string }) => {
+  const handleAccountChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedAccount(e.target.value)
   }
   return (

@@ -33,7 +33,7 @@ const Lands: React.FC<{
       <tbody>
         {lands &&
           Object.values(lands).map((land) => {
-            let landPlants: Plant =
+            let landPlants: Plant[] | Common[] =
               Object.values(plants || {}).filter(
                 (plant) => plant.landId == land.id
               ) || [];

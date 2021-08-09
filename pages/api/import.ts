@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { useContext } from "react";
-import { UserContext } from "../../lib/context";
 import { firestore, serverTimestamp } from "../../lib/firebase";
-import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
+import { Plant } from "../../lib/interface";
 
 type Data = {
   json: string;
@@ -15,7 +13,7 @@ export default async function handler(
   let { user, json, page } = req.body;
   let pvuResponse = JSON.parse(json);
   const batch = firestore.batch();
-  pvuResponse.data.forEach(async (plant, index) => {
+  pvuResponse.data.forEach(async (plant: Plant, index: number) => {
     const landRef = firestore.doc(`users/${user}/lands/${plant.ownerId}`);
     batch.set(landRef, {
       address: plant.ownerId,
