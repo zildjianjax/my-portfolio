@@ -67,6 +67,11 @@ export function getUserLands(
     idField: "id",
   });
 
+  console.log('Lands Error');
+  console.error(error);
+  
+  
+
   let lands: CommonCollection<Land> = (collection as Data<Land>[])?.reduce(
     arrayToObject,
     {}
@@ -91,6 +96,9 @@ export function getLandPlants(
     snapshotListenOptions: { includeMetadataChanges: true },
     idField: "id",
   });
+
+  console.log('Plants Error');
+  console.error(error);
 
   let plants: CommonCollection<Plant> = (collection as Data<Plant>[])?.reduce(
     arrayToObject,
