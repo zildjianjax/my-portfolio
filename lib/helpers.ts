@@ -37,7 +37,7 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
   let hasRecentlyPassed = false;
   let isFiveMinutesRemaining = false;
 
-  if (startTime.isAfter(endTime) && hourDiff >= 1 && minuteDiff > 0) {
+  if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 30) {
     endTime.add(1, "days");
   }
 
@@ -55,7 +55,7 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
   if (timeRemaining > -1) {
     hasRecentlyPassed = true;
   }
-  if (hoursDiff < 1 && minutesDiff < 6) {
+  if (hoursDiff < 1 && minutesDiff < 6 && minutesDiff >= 0) {
     isFiveMinutesRemaining = true;
   }
 

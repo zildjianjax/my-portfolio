@@ -32,7 +32,7 @@ const Land: React.FC<{
       return { ...plant, ...getTimeDiff(plant.resetTime) };
     });
 
-    landPlantsArray = _.reverse(_.sortBy(landPlantsArray, ["timeRemaining"]));
+    landPlantsArray = _.reverse(_.sortBy(landPlantsArray, ["timeRemaining"])).slice(0, 20);
 
     setLandPlants(landPlantsArray);
     setPlantCount(landPlantsArray.length);
@@ -58,7 +58,7 @@ const Land: React.FC<{
 
   return (
     <>
-      <tr className={`${firstRow?.isFiveMinutesRemaining && "has-passed"}`}>
+      <tr className={`${firstRow?.isFiveMinutesRemaining && "in-five-min"} ${firstRow?.hasRecentlyPassed && "has-passed"}`}>
         <th rowSpan={plantCount} className="align-top">
           <div className="flex items-center space-x-3">
             <div className="flex flex-col">
@@ -86,7 +86,7 @@ const Land: React.FC<{
         landPlants.map((plant) => (
           <tr
             key={plant?.readableId}
-            className={`${plant.isFiveMinutesRemaining && "bg-green-100"}`}
+            className={`${plant?.isFiveMinutesRemaining && "in-five-min"} ${plant?.hasRecentlyPassed && "has-passed"}`}
           >
             <td>{displayTimer(plant)}</td>
             <td>{plant?.page}</td>

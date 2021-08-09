@@ -21,6 +21,9 @@ th, td {
   @apply p-2 border;
 }
 
-tr.has-passed td {
+tr.in-five-min td {
   @apply bg-green-100;
+}
+tr.has-passed td {
+  @apply bg-gray-100;
 }
