@@ -14,16 +14,6 @@ import { postData } from "../lib/api";
 
 const ImportJSON = () => {
   const { user } = useContext(UserContext);
-  const [fieldJSON, setFieldJSON] = useState("");
-
-  const [isActive, setIsActive] = useState(false);
-  const handleClose = () => {
-    setIsActive(false);
-  };
-  const handleOpen = () => {
-    setIsActive(true);
-  };
-
   const {
     register,
     handleSubmit,
@@ -33,6 +23,15 @@ const ImportJSON = () => {
     formState: { errors },
   } = useForm();
   const page = watch("page");
+
+  const [isActive, setIsActive] = useState(false);
+  const handleClose = () => {
+    setIsActive(false);
+  };
+  const handleOpen = () => {
+    setIsActive(true);
+    setValue("page",1);
+  };
 
   const onSubmit: SubmitHandler<{ json: string }> = async (formData) => {
     console.log({ ...formData, user: user?.uid });
