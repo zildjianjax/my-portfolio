@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  useCollectionData,
-} from "react-firebase-hooks/firestore";
-import { arrayToObject, auth, firestore, postToJSON } from "../lib/firebase";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { arrayToObject, auth, firestore } from "../lib/firebase";
 import firebase from "firebase/app";
 import { Account, CommonCollection, Land, Plant, UserData } from "./interface";
 import { Data } from "react-firebase-hooks/firestore/dist/firestore/types";
-import { getTimeDiff } from "./helpers";
 
 export function useUserData(): UserData {
   const [user] = useAuthState(auth);
@@ -89,13 +86,7 @@ export function getLandPlants(
   });
 
   let plants: CommonCollection<Plant> = (collection as Data<Plant>[])?.reduce(
-    (carry: CommonCollection<Plant>, item) => {
-      let timeValues = getTimeDiff(item.resetTime);
-
-      carry[item.id] = {...item, ...timeValues};
-      
-      return carry;
-    },
+    arrayToObject,
     {}
   );
 
