@@ -13,7 +13,7 @@ const Navbar = () => {
     <nav className="border-b p-4">
       <ul className="flex justify-between items-center">
         <li>
-          <Link href="/">
+          <Link href="/" passHref>
             <button className="text-2xl text-green-600">PvU Tracker</button>
           </Link>
         </li>

@@ -51,6 +51,7 @@ const Lands: React.FC<{
                     <a
                       href={`https://marketplace.plantvsundead.com/farm/other/${land.address}`}
                       target="_blank"
+                      rel="noreferrer"
                       className="text-blue-500 underline"
                     >
                       {land.address}

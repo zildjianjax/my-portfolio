@@ -1,10 +1,16 @@
-import Link from 'next/link';
-import { useContext } from 'react';
-import { UserContext } from '../lib/context';
+import Link from "next/link";
+import React, { ReactElement, ReactNode } from "react";
+import { useContext } from "react";
+import { UserContext } from "../lib/context";
 
-// Component's children only shown to logged-in users
-export default function AuthCheck(props) {
+const AuthCheck: React.FC<{ fallback?: React.ElementType }> = ({
+  children,
+  fallback,
+}) => {
   const { user } = useContext(UserContext);
 
-  return user ? props.children : props.fallback || null;
-}
+  return <div>{user ? children : fallback || null}</div>;
+};
+
+// Component's children only shown to logged-in users
+export default AuthCheck;

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
-  useCollection,
   useCollectionData,
 } from "react-firebase-hooks/firestore";
 import { arrayToObject, auth, firestore, postToJSON } from "../lib/firebase";
@@ -92,7 +91,7 @@ export function getLandPlants(
   let plants: CommonCollection<Plant> = (collection as Data<Plant>[])?.reduce(
     (carry: CommonCollection<Plant>, item) => {
       let timeValues = getTimeDiff(item.resetTime);
-      
+
       carry[item.id] = {...item, ...timeValues};
       
       return carry;
