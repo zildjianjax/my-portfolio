@@ -38,7 +38,7 @@ const ImportJSON = () => {
     let res = await postData("/api/import", { ...formData, user: user?.uid });
     Alert.fire("", "Successfully Imported", "success").then(() => {
       reset();
-      handleClose();
+      // handleClose();
     });
   };
 
