@@ -8,6 +8,7 @@ import { UserContext } from "../lib/context";
 import { getUserAccounts, getUserLands } from "../lib/hooks";
 import { CommonCollection, Land, Plant } from "../lib/interface";
 import AuthCheck from "../components/AuthCheck";
+import AdminCheck from "../components/AdminCheck";
 
 export default function Home() {
   const { user } = useContext(UserContext);
@@ -35,14 +36,14 @@ export default function Home() {
         <AuthCheck>
           <div className="container mx-auto">
             <br />
-            {admin.includes(user?.email) && <Summary />}
-            {admin.includes(user?.email) && (
+            <AdminCheck>
+              <Summary />
               <AccountSwitcher
                 accounts={accounts && Object.values(accounts)}
                 setSelectedAccount={setSelectedAccount}
                 selectedAccount={selectedAccount}
               />
-            )}
+            </AdminCheck>
             <Lands lands={lands} plants={plants} user={user} />
           </div>
         </AuthCheck>

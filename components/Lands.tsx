@@ -6,6 +6,7 @@ import {
   Plant,
 } from "../lib/interface";
 import Land from "./Land";
+import AdminCheck from "./AdminCheck";
 
 const Lands: React.FC<{
   lands: CommonCollection<LandInterface>;
@@ -23,9 +24,11 @@ const Lands: React.FC<{
             <th colSpan={5} className="text-center">
               Plant
             </th>
-            <th rowSpan={2} className="text-center">
-              Actions
-            </th>
+            <AdminCheck>
+              <th rowSpan={2} className="text-center">
+                Actions
+              </th>
+            </AdminCheck>
           </tr>
           <tr>
             <th>Reset In</th>
@@ -38,7 +41,7 @@ const Lands: React.FC<{
         <tbody>
           {lands &&
             Object.values(lands).map((land) => (
-              <Land key={land.id} land={land} plants={plants} user={user}/>
+              <Land key={land.id} land={land} plants={plants} user={user} />
             ))}
         </tbody>
       </table>

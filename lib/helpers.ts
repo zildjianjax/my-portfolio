@@ -8,6 +8,7 @@ type ReturnDate = {
   minutesDiff: number;
   secondsDiff: number;
   isFiveMinutesRemaining: boolean;
+  isThirthyMinutesRemaing: boolean;
 };
 
 export const getTimeDiff = (time: Date | string): ReturnDate => {
@@ -19,6 +20,7 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
       differenceToNextTime: "N/A",
       hasRecentlyPassed: false,
       isFiveMinutesRemaining: false,
+      isThirthyMinutesRemaing: false,
       timeRemaining: 0,
       hoursDiff: 0,
       minutesDiff: 0,
@@ -29,13 +31,14 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
   let timeToHours = timeToMoment.utc().format("HH:mm:ss");
 
   const startTime = moment.utc(utcTimeNow.format("HH:mm:ss"), "HH:mm a");
-  const endTime = moment.utc(timeToHours, "HH:mm a");
+  const endTime = moment.utc(timeToHours, "HH:mm:ss a");
 
   const hourDiff = startTime.diff(endTime, "hours");
   const minuteDiff = startTime.diff(endTime, "minutes");
 
   let hasRecentlyPassed = false;
   let isFiveMinutesRemaining = false;
+  let isThirthyMinutesRemaing = false;
 
   if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 30) {
     endTime.add(1, "days");
@@ -58,6 +61,9 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
   if (hoursDiff < 1 && minutesDiff < 6 && minutesDiff >= 0) {
     isFiveMinutesRemaining = true;
   }
+  if (hoursDiff < 1 && minutesDiff < 31 && minutesDiff >= 0) {
+    isThirthyMinutesRemaing = true;
+  }
 
   return {
     differenceToNextTime: startTime.to(endTime),
@@ -67,6 +73,7 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
     minutesDiff,
     secondsDiff,
     isFiveMinutesRemaining,
+    isThirthyMinutesRemaing
   };
 };
 

@@ -28,7 +28,8 @@ export interface Plant extends Common {
   resetTime: Date;
   differenceToNextTime: Date | string;
   hasRecentlyPassed: boolean;
-  isFiveMinutesRemaining: number;
+  isFiveMinutesRemaining: boolean;
+  isThirthyMinutesRemaing: boolean;
   timeRemaining: number;
   hoursDiff: number;
   minutesDiff: number;

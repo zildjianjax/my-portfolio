@@ -8,9 +8,10 @@ import {
 import AddPlant from "./AddPlant";
 import moment from "moment";
 import _ from "lodash";
-import firebase from "firebase"
-import { admin } from "../lib/whitelist"
+import firebase from "firebase";
 import { getTimeDiff, stripAddress } from "../lib/helpers";
+import AdminCheck from "./AdminCheck";
+import PlantRow from "./PlantRow";
 
 const Land: React.FC<{
   land: LandInterface | Common;
@@ -18,7 +19,7 @@ const Land: React.FC<{
   user: firebase.User | null | undefined;
 }> = ({ land, plants, user }) => {
   const [landPlants, setLandPlants] = useState<LandInterface[] | Common[]>([]);
-  const [firstRow, setFirstRow] = useState<LandInterface | Common>();
+  const [firstRow, setFirstRow] = useState<Plant | Common>();
   const [plantCount, setPlantCount] = useState<number>(0);
   const [timer, steTimer] = useState<number>(0);
 
@@ -26,16 +27,18 @@ const Land: React.FC<{
 
   const generateHourDiff = () => {
     let landPlantsArray: Plant[] | Common[] =
-      Object.values(plants || {}).filter((plant) => plant.landId == land.id) ||
+      Object.values(plants || {}).filter((plant) => plant.landId) ||
       [];
 
     landPlantsArray = landPlantsArray.map((plant: Plant | Common):
       | Plant
       | Common => {
       return { ...plant, ...getTimeDiff(plant.resetTime) };
-    });
+    }).filter((plant) => plant.isThirthyMinutesRemaing );
 
-    landPlantsArray = _.reverse(_.sortBy(landPlantsArray, ["timeRemaining"])).slice(0, 20);
+    landPlantsArray = _.reverse(
+      _.sortBy(landPlantsArray, ["timeRemaining"])
+    ).slice(0, 20);
 
     setLandPlants(landPlantsArray);
     setPlantCount(landPlantsArray.length);
@@ -52,16 +55,13 @@ const Land: React.FC<{
     };
   }, [plants, timer]);
 
-  const displayTimer = (plant: Plant | Common | undefined) => {
-    return `${moment(plant?.resetTime).format("hh:mm:ss a")} (
-      ${
-        plant?.differenceToNextTime
-      } ${`${plant?.hoursDiff}:${plant?.minutesDiff}:${plant?.secondsDiff}`})`;
-  };
-
   return (
     <>
-      <tr className={`${firstRow?.isFiveMinutesRemaining && "in-five-min"} ${firstRow?.hasRecentlyPassed && "has-passed"}`}>
+      <tr
+        className={`${firstRow?.isFiveMinutesRemaining && "in-five-min"} ${
+          firstRow?.hasRecentlyPassed && "has-passed"
+        }`}
+      >
         <th rowSpan={plantCount} className="align-top">
           <div className="flex items-center space-x-3">
             <div className="flex flex-col">
@@ -73,30 +73,26 @@ const Land: React.FC<{
               >
                 {stripAddress(land.address)}
               </a>
-              <span>X: {land.x}, Y: {land.y}</span>
+              <span>
+                X: {land.x}, Y: {land.y}
+              </span>
             </div>
-            {admin.includes(user?.email) && <AddPlant landId={land.id} />}
+            <AdminCheck>
+              <AddPlant landId={land.id} />
+            </AdminCheck>
           </div>
         </th>
-        <td>{firstRow && displayTimer(firstRow)}</td>
-        <td>{firstRow?.page}</td>
-        <td>{firstRow?.card}</td>
-        <td>{firstRow?.element}</td>
-        <td>{firstRow?.readableId}</td>
-        <td>{firstRow && `Skip, Done`}</td>
+        <PlantRow plant={firstRow as Plant} />
       </tr>
       {plants &&
         landPlants.map((plant) => (
           <tr
             key={plant?.readableId}
-            className={`${plant?.isFiveMinutesRemaining && "in-five-min"} ${plant?.hasRecentlyPassed && "has-passed"}`}
+            className={`${plant?.isFiveMinutesRemaining && "in-five-min"} ${
+              plant?.hasRecentlyPassed && "has-passed"
+            }`}
           >
-            <td>{displayTimer(plant)}</td>
-            <td>{plant?.page}</td>
-            <td>{plant?.card}</td>
-            <td>{plant?.element}</td>
-            <td>{plant?.readableId}</td>
-            <td>Skip, Done</td>
+            <PlantRow plant={plant as Plant} />
           </tr>
         ))}
     </>
