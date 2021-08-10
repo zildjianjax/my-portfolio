@@ -58,6 +58,9 @@ export function getUserLands(
     .doc(`users/${user_id}`)
     .collection("lands")
     .orderBy("createdAt", "asc");
+
+    console.log('getting lands');
+    
   // const querySnapshot = firestore
   //   .doc(`users/${user?.uid}`)
   //   .collection("lands")
@@ -84,6 +87,8 @@ export function getLandPlants(
   const querySnapshot = firestore
     .collectionGroup("plants")
     .where("userId", "==", user_id);
+
+    console.log('getting plants');
   // const querySnapshot = firestore
   //   .collectionGroup("plants")
   //   .where("userId", "==", user?.uid || null);

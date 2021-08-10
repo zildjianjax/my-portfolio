@@ -10,7 +10,7 @@ const firebaseConfig: Object = {
   projectId: "plantsvsundead-f559c",
   storageBucket: "plantsvsundead-f559c.appspot.com",
   messagingSenderId: "1068991784025",
-  appId: "1:1068991784025:web:81fde231d5459ce3793d48",
+  appId: "1:1068991784025:web:81fde231d5459ce3793d48"
 };
 
 if (!firebase.apps.length) {

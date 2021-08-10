@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Common,
   CommonCollection,
@@ -25,25 +25,24 @@ const Land: React.FC<{
 
   let interval: { current: NodeJS.Timeout | null } = useRef(null);
 
-  const generateHourDiff = () => {
+  const generateHourDiff = useCallback(() => {
     let landPlantsArray: Plant[] | Common[] =
-      Object.values(plants || {}).filter((plant) => plant.landId) ||
-      [];
+      Object.values(plants || {}).filter((plant) => plant.landId) || [];
 
     landPlantsArray = landPlantsArray.map((plant: Plant | Common):
       | Plant
       | Common => {
       return { ...plant, ...getTimeDiff(plant.resetTime) };
-    })
+    });
 
     landPlantsArray = _.reverse(
       _.sortBy(landPlantsArray, ["timeRemaining"])
-    ).slice(0, 20);
+    ).slice(0, 10);
 
     setLandPlants(landPlantsArray);
     setPlantCount(landPlantsArray.length);
     setFirstRow(landPlantsArray.splice(0, 1)[0]);
-  };
+  }, [timer]);
 
   useEffect(() => {
     generateHourDiff();
@@ -62,7 +61,11 @@ const Land: React.FC<{
           firstRow?.hasRecentlyPassed && "has-passed"
         }`}
       >
-        <th rowSpan={plantCount} className="align-top">
+        <th
+          rowSpan={plantCount == 0 ? 1 : plantCount}
+          colSpan={plantCount == 0 ? 7 : 1}
+          className="align-top"
+        >
           <div className="flex items-center space-x-3">
             <div className="flex flex-col">
               <a
@@ -82,7 +85,7 @@ const Land: React.FC<{
             </AdminCheck>
           </div>
         </th>
-        <PlantRow plant={firstRow as Plant} />
+        {firstRow && <PlantRow plant={firstRow as Plant} />}
       </tr>
       {plants &&
         landPlants.map((plant) => (

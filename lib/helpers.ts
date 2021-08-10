@@ -9,6 +9,7 @@ type ReturnDate = {
   secondsDiff: number;
   isFiveMinutesRemaining: boolean;
   isThirthyMinutesRemaing: boolean;
+  moveToNextDay: boolean;
 };
 
 export const getTimeDiff = (time: Date | string): ReturnDate => {
@@ -21,6 +22,7 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
       hasRecentlyPassed: false,
       isFiveMinutesRemaining: false,
       isThirthyMinutesRemaing: false,
+      moveToNextDay: false,
       timeRemaining: 0,
       hoursDiff: 0,
       minutesDiff: 0,
@@ -37,11 +39,13 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
   const minuteDiff = startTime.diff(endTime, "minutes");
 
   let hasRecentlyPassed = false;
+  let moveToNextDay = false;
   let isFiveMinutesRemaining = false;
   let isThirthyMinutesRemaing = false;
 
-  if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 30) {
+  if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 5) {
     endTime.add(1, "days");
+    moveToNextDay = true;
   }
 
   const timeRemaining = startTime.diff(endTime);
@@ -73,7 +77,8 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
     minutesDiff,
     secondsDiff,
     isFiveMinutesRemaining,
-    isThirthyMinutesRemaing
+    isThirthyMinutesRemaing,
+    moveToNextDay
   };
 };
 

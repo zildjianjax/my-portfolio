@@ -6,6 +6,12 @@ import { admin, guest } from "../../lib/whitelist"
 const Google = () => {
   const signInWithGoogle = async () => {
     const user = await auth.signInWithPopup(googleAuthProvider);
+    
+    if(!user) {
+      Alert.fire("Oops!", "Something went wrong.", "error");
+      return false;
+    }
+    
     const whitelist: (string | undefined| null)[] = [...admin, ...guest];
     if (!whitelist.includes(user.user?.email as string)) {
       auth.signOut();

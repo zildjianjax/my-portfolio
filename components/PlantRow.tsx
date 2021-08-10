@@ -10,28 +10,17 @@ const PlantRow: React.FC<{ plant: Plant }> = ({ plant }) => {
         plant?.differenceToNextTime
       } ${`${plant?.hoursDiff}:${plant?.minutesDiff}:${plant?.secondsDiff}`})`;
   };
-  return plant ? (
-    <>
-      <td>{plant && displayTimer(plant)}</td>
-      <td>{plant?.page}</td>
-      <td>{plant?.card}</td>
-      <td>{plant?.element}</td>
-      <td>{plant?.readableId}</td>
-      <AdminCheck>
+  return (
+    plant && (
+      <>
+        <td>{plant && displayTimer(plant)}</td>
+        <td>{plant?.page}</td>
+        <td>{plant?.card}</td>
+        <td>{plant?.element}</td>
+        <td>{plant?.readableId}</td>
         <td>{plant && `Skip, Done`}</td>
-      </AdminCheck>
-    </>
-  ) : (
-    <>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <AdminCheck>
-        <td></td>
-      </AdminCheck>
-    </>
+      </>
+    )
   );
 };
 

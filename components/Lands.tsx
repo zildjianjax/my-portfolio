@@ -24,11 +24,9 @@ const Lands: React.FC<{
             <th colSpan={5} className="text-center">
               Plant
             </th>
-            <AdminCheck>
-              <th rowSpan={2} className="text-center">
-                Actions
-              </th>
-            </AdminCheck>
+            <th rowSpan={2} className="text-center">
+              Actions
+            </th>
           </tr>
           <tr>
             <th>Reset In</th>
