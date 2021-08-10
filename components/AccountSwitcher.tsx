@@ -5,13 +5,15 @@ import AddLand from "./AddLand";
 import ImportJSON from "./ImportJSON";
 import Tools from "./Tools";
 
-const AccountSwitcher = ({ accounts, setSelectedAccount, selectedAccount }: { accounts: Account[] | Common[], setSelectedAccount: Dispatch<SetStateAction<string>>, selectedAccount: string }) => {
+const AccountSwitcher = ({ accounts, setSelectedAccount, selectedAccount }: { accounts?: Account[] | Common[], setSelectedAccount?: Dispatch<SetStateAction<string>>, selectedAccount?: string }) => {
   const handleAccountChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedAccount(e.target.value)
+    if(setSelectedAccount) {
+      setSelectedAccount(e.target.value)
+    }
   }
   return (
     <div className="border mt-10 p-4 rounded-md flex space-x-5">
-      <select
+      {/* <select
         className="p-2 border rounded w-52"
         name=""
         id=""
@@ -22,10 +24,10 @@ const AccountSwitcher = ({ accounts, setSelectedAccount, selectedAccount }: { ac
             {acct.name}
           </option>
         ))}
-      </select>
+      </select> */}
 
       <AddAccount />
-      <AddLand selectedAccount={selectedAccount} />
+      {/* <AddLand selectedAccount={selectedAccount} /> */}
       <ImportJSON />
     </div>
   );

@@ -11,6 +11,7 @@ import _ from "lodash";
 import Alert from "sweetalert2";
 import Paginations from "../components/Paginations";
 import Filters from "../components/Filters";
+import AccountSwitcher from "../components/AccountSwitcher";
 
 export default function Home() {
   const [lands, setLands] = useState({});
@@ -81,11 +82,11 @@ export default function Home() {
                 Sync Data
               </button>
               <Summary />
-              {/* <AccountSwitcher
-                accounts={accounts && Object.values(accounts)}
-                setSelectedAccount={setSelectedAccount}
-                selectedAccount={selectedAccount}
-              /> */}
+              <AccountSwitcher
+                // accounts={accounts && Object.values(accounts)}
+                // setSelectedAccount={setSelectedAccount}
+                // selectedAccount={selectedAccount}
+              />
             </AdminCheck>
             <Filters setPerPage={setPerPage} />
             <Lands
