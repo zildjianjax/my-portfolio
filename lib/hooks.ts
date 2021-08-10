@@ -5,6 +5,7 @@ import { arrayToObject, auth, firestore } from "../lib/firebase";
 import firebase from "firebase/app";
 import { Account, CommonCollection, Land, Plant, UserData } from "./interface";
 import { Data } from "react-firebase-hooks/firestore/dist/firestore/types";
+import { user_id } from "../lib/whitelist"
 
 export function useUserData(): UserData {
   const [user] = useAuthState(auth);
@@ -54,7 +55,7 @@ export function getUserLands(
   user: firebase.User | null | undefined
 ): [CommonCollection<Land>, CommonCollection<Plant>] {
   const querySnapshot = firestore
-    .doc(`users/LTd19OPAM9P1hk9BIrqwjLUezyH3`)
+    .doc(`users/${user_id}`)
     .collection("lands")
     .orderBy("createdAt", "asc");
   // const querySnapshot = firestore
@@ -66,11 +67,6 @@ export function getUserLands(
     snapshotListenOptions: { includeMetadataChanges: true },
     idField: "id",
   });
-
-  console.log('Lands Error');
-  console.error(error);
-  
-  
 
   let lands: CommonCollection<Land> = (collection as Data<Land>[])?.reduce(
     arrayToObject,
@@ -87,7 +83,7 @@ export function getLandPlants(
 ): [CommonCollection<Plant>, boolean, firebase.FirebaseError | undefined] {
   const querySnapshot = firestore
     .collectionGroup("plants")
-    .where("userId", "==", "LTd19OPAM9P1hk9BIrqwjLUezyH3");
+    .where("userId", "==", user_id);
   // const querySnapshot = firestore
   //   .collectionGroup("plants")
   //   .where("userId", "==", user?.uid || null);
@@ -96,9 +92,6 @@ export function getLandPlants(
     snapshotListenOptions: { includeMetadataChanges: true },
     idField: "id",
   });
-
-  console.log('Plants Error');
-  console.error(error);
 
   let plants: CommonCollection<Plant> = (collection as Data<Plant>[])?.reduce(
     arrayToObject,

@@ -43,7 +43,7 @@ export default function Home() {
                 selectedAccount={selectedAccount}
               />
             )}
-            {selectedAccount && <Lands lands={lands} plants={plants} user={user} />}
+            <Lands lands={lands} plants={plants} user={user} />
           </div>
         </AuthCheck>
       </div>
