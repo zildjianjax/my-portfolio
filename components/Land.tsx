@@ -90,7 +90,7 @@ const Land: React.FC<{
         landPlants.map((plant) => (
           <tr
             key={plant?.readableId}
-            className={`${plant?.isFiveMinutesRemaining && "in-five-min"} ${
+            className={`${plant?.isFiveMinutesRemaining && "in-one-min"} ${
               plant?.hasRecentlyPassed && "has-passed"
             }`}
           >
