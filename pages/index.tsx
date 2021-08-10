@@ -62,9 +62,11 @@ export default function Home() {
         </Head>
         <AuthCheck>
           <div className="container mx-auto">
-            <button onClick={onClick}>Sync Data</button>
             <br />
             <AdminCheck>
+              <button onClick={onClick} className="btn btn-success">
+                Sync Data
+              </button>
               <Summary />
               {/* <AccountSwitcher
                 accounts={accounts && Object.values(accounts)}
