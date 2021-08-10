@@ -1,10 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { arrayToObject, firestore, serverTimestamp } from "../../lib/firebase";
-import { CommonCollection, Land, Plant } from "../../lib/interface";
+import {
+  firestore,
+  storage,
+} from "../../lib/firebase";
+import { CommonCollection } from "../../lib/interface";
 import fs from "fs";
-import { getUserLands } from "../../lib/hooks";
 import { user_id } from "../../lib/whitelist";
-import { Data } from "react-firebase-hooks/firestore/dist/firestore/types";
 import firebase from "firebase";
 
 type ResponseData = {
@@ -47,11 +48,12 @@ export default async function handler(
 ) {
   let lands = await getLands();
   let plants = await getPlants();
+  
+  const landsRef = storage.ref(`data/lands.txt`);
+  await landsRef.putString(JSON.stringify(lands));
 
-  // let plants = plantCollection.reduce((carry: CommonCollection<Plant>, doc: firebase.firestore.DocumentData) => {
-  //   let id = doc.data().id
-  //   carry:
-  // }, {});
+  const plantsRef = storage.ref(`data/plants.txt`);
+  await plantsRef.putString(JSON.stringify(plants));
 
   try {
     fs.writeFileSync("data/plants.txt", JSON.stringify(plants));
