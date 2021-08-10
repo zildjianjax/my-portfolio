@@ -15,8 +15,8 @@ const Lands: React.FC<{
 }> = ({ lands, plants, user }) => {
   return (
     <div>
-      <table className="mt-5">
-        <thead>
+      <table className="mt-5 cus1">
+        <thead className="text-center">
           <tr>
             <th rowSpan={2} className="text-center w-3/12">
               Land

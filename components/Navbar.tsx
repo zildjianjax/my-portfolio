@@ -10,11 +10,11 @@ const Navbar = () => {
   const { user, username } = useContext(UserContext);
 
   return (
-    <nav className="border-b p-4">
+    <nav className="border-b p-4 nav3s">
       <ul className="flex justify-between items-center">
         <li>
           <Link href="/" passHref>
-            <button className="text-2xl text-green-600">PvU Tracker</button>
+            <button className="logo"><img src="https://plantvsundead.com/assets/img/Logo%20game.png" alt="Plant vs Undead - Your NFT Garden"/></button>
           </Link>
         </li>
 

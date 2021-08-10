@@ -64,10 +64,9 @@ const Land: React.FC<{
         <th
           rowSpan={plantCount == 0 ? 1 : plantCount}
           colSpan={plantCount == 0 ? 7 : 1}
-          className="align-top"
         >
-          <div className="flex items-center space-x-3">
-            <div className="flex flex-col">
+          <div className="flex justify-center land-link">
+            <div>
               <a
                 href={`https://marketplace.plantvsundead.com/farm/other/${land.address}`}
                 target="_blank"
@@ -76,7 +75,7 @@ const Land: React.FC<{
               >
                 {stripAddress(land.address)}
               </a>
-              <span>
+              <span className="coorxy">
                 X: {land.x}, Y: {land.y}
               </span>
             </div>

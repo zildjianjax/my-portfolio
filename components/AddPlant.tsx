@@ -56,8 +56,8 @@ const AddPlant = ({ landId }: { landId: string }) => {
   };
   return (
     <div>
-      <button className="btn btn-success" onClick={handleOpen}>
-        Add Plant
+      <button onClick={handleOpen}>
+        <img class="tw-rounded-full" alt="plant vs undead token  (PVU)" height="28" width="28" src="https://assets.coingecko.com/coins/images/17461/small/token-200x200.png?1627883446"/>
       </button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal isActive={isActive}>
