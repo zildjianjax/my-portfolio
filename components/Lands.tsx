@@ -38,8 +38,8 @@ const Lands: React.FC<{
         </thead>
         <tbody>
           {lands &&
-            Object.values(lands).map((land) => (
-              <Land key={land.id} land={land} plants={plants} user={user} />
+            Object.values(lands).map((land, index) => (
+              <Land key={index} land={land} plants={plants} user={user} />
             ))}
         </tbody>
       </table>

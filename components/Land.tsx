@@ -17,17 +17,17 @@ const Land: React.FC<{
   land: LandInterface | Common;
   plants: CommonCollection<Plant>;
   user: firebase.User | null | undefined;
-}> = ({ land, plants, user }) => {
+}> = ({ land, plants, user }) => {  
   const [landPlants, setLandPlants] = useState<LandInterface[] | Common[]>([]);
   const [firstRow, setFirstRow] = useState<Plant | Common>();
   const [plantCount, setPlantCount] = useState<number>(0);
-  const [timer, steTimer] = useState<number>(0);
+  const [timer, steTimer] = useState<number>(0);  
 
   let interval: { current: NodeJS.Timeout | null } = useRef(null);
 
-  const generateHourDiff = useCallback(() => {
+  const generateHourDiff = useCallback(() => {    
     let landPlantsArray: Plant[] | Common[] =
-      Object.values(plants || {}).filter((plant) => plant.landId) || [];
+      Object.values(plants).filter((plant) => plant.landId == land.address) || [];
 
     landPlantsArray = landPlantsArray.map((plant: Plant | Common):
       | Plant
