@@ -13,7 +13,6 @@ const AccountSwitcher = ({ accounts, setSelectedAccount, selectedAccount }: { ac
   }
   return (
     <div className="border mt-10 p-4 rounded-md flex space-x-5">
-      {/* Comment */}
       {/* <select
         className="p-2 border rounded w-52"
         name=""
