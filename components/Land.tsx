@@ -57,7 +57,7 @@ const Land: React.FC<{
   return (
     <>
       <tr
-        className={`${firstRow?.isFiveMinutesRemaining && "in-five-min"} ${
+        className={`${firstRow?.isFiveMinutesRemaining && "in-one-min"} ${
           firstRow?.hasRecentlyPassed && "has-passed"
         }`}
       >
