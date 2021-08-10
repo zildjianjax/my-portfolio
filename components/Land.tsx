@@ -34,7 +34,7 @@ const Land: React.FC<{
       | Plant
       | Common => {
       return { ...plant, ...getTimeDiff(plant.resetTime) };
-    }).filter((plant) => plant.isThirthyMinutesRemaing );
+    })
 
     landPlantsArray = _.reverse(
       _.sortBy(landPlantsArray, ["timeRemaining"])
