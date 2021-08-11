@@ -46,7 +46,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
 
       <AddAccount />
       {/* <AddLand selectedAccount={selectedAccount} /> */}
-      <ImportJSON lands={lands} />
+      <ImportJSON lands={lands as CommonCollection<Land>} />
     </div>
   );
 };
