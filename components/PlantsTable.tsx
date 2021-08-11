@@ -7,7 +7,6 @@ import {
 } from "../lib/interface";
 import LandRow from "./LandRow";
 import AdminCheck from "./AdminCheck";
-import CanonicalLandPlants from "./CanonicalLandPlants";
 import CanonicalPlantRows from "./CanonicalPlantRows";
 
 const PlantsTable: React.FC<{

@@ -7,7 +7,6 @@ import {
 } from "../lib/interface";
 import LandRow from "./LandRow";
 import AdminCheck from "./AdminCheck";
-import CanonicalLandPlants from "./CanonicalLandPlants";
 
 const LandsTable: React.FC<{
   lands: CommonCollection<LandInterface>;
