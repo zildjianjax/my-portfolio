@@ -1,16 +1,34 @@
-import React, { ChangeEventHandler, Dispatch, EventHandler, SetStateAction, SyntheticEvent } from "react";
-import { Account, Common } from "../lib/interface";
+import React, {
+  ChangeEventHandler,
+  Dispatch,
+  EventHandler,
+  SetStateAction,
+  SyntheticEvent,
+} from "react";
+import { Account, Common, CommonCollection, Land } from "../lib/interface";
 import AddAccount from "./AddAccount";
 import AddLand from "./AddLand";
 import ImportJSON from "./ImportJSON";
 import Tools from "./Tools";
 
-const AccountSwitcher = ({ accounts, setSelectedAccount, selectedAccount }: { accounts?: Account[] | Common[], setSelectedAccount?: Dispatch<SetStateAction<string>>, selectedAccount?: string }) => {
+type AccountSwitcherProps = {
+  accounts?: Account[] | Common[];
+  setSelectedAccount?: Dispatch<SetStateAction<string>>;
+  selectedAccount?: string;
+  lands?: CommonCollection<Land>;
+};
+
+const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
+  accounts,
+  setSelectedAccount,
+  selectedAccount,
+  lands,
+}) => {
   const handleAccountChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if(setSelectedAccount) {
-      setSelectedAccount(e.target.value)
+    if (setSelectedAccount) {
+      setSelectedAccount(e.target.value);
     }
-  }
+  };
   return (
     <div className="border mt-10 p-4 rounded-md flex space-x-5">
       {/* <select
@@ -28,7 +46,7 @@ const AccountSwitcher = ({ accounts, setSelectedAccount, selectedAccount }: { ac
 
       <AddAccount />
       {/* <AddLand selectedAccount={selectedAccount} /> */}
-      <ImportJSON />
+      <ImportJSON lands={lands as CommonCollection<Land>} />
     </div>
   );
 };
