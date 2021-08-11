@@ -79,8 +79,8 @@ export default function Home() {
     isLoaded && (
       <div className="p-4">
         <Head>
-          <title>PVU</title>
-          <link rel="icon" href="/icon.svg" />
+          <title>My Portfolio</title>
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <AuthCheck>
           <div className="container mx-auto">
