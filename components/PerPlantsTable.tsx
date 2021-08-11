@@ -26,6 +26,7 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
   const [availablePlantsToShow, setAvailablePlantsToShow] = useState({});
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(20);
+  const [realtime, setRealtime] = useState(true);
   const totalLands = Object.keys(plants).length - 1;
   const perPageOptions = [20, 50, 100];
 
@@ -34,13 +35,15 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
 
   useEffect(() => {
     handlePagination(page);
-    interval.current = setInterval(() => {
-      steTimer(timer + 1);
-    }, 1000);
+    if (realtime) {
+      interval.current = setInterval(() => {
+        steTimer(timer + 1);
+      }, 1000);
+    }
     return () => {
       clearInterval(interval.current as NodeJS.Timeout);
     };
-  }, [page, perPage, isLoaded, timer]);
+  }, [page, perPage, isLoaded, timer, realtime]);
 
   const handlePagination = (page_value: number): void => {
     setPage(page_value);
@@ -72,12 +75,26 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
       </div>
     );
   };
+
+  const RealTimeField: React.FC = () => {
+    return (
+      <div className="flex space-x-2 items-center">
+        <label className="text-gray-300">Realtime:</label>
+        <input
+          type="checkbox"
+          checked={realtime}
+          onChange={() => setRealtime(!realtime)}
+        />
+      </div>
+    );
+  };
   return (
     <>
       <Filters
         setPerPage={setPerPage}
         CanonicalField={CanonicalField}
         perPageOptions={perPageOptions}
+        RealTimeField={RealTimeField}
       />
       <PlantsTable
         lands={lands}
