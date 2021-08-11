@@ -57,13 +57,15 @@ export default function Home() {
 
   const CanonicalField: React.FC = () => {
     return (
-      <div className="flex space-x-2 items-center">
-        <label className="text-gray-300">Canonical:</label>
-        <input
-          type="checkbox"
-          checked={isCanonical}
-          onChange={handleIsCanonical}
-        />
+      <div className="flex space-x-2 items-center rounded">
+        <div className="checkbox">
+            <input id="box"
+            type="checkbox"
+            checked={isCanonical}
+            onChange={handleIsCanonical}
+           />
+           <label htmlFor="box" className="text-gray-300">Canonical</label>
+        </div>  
       </div>
     );
   };
