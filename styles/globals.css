@@ -20,6 +20,7 @@ table {
   @apply text-left w-full;
 }
 th, thead{
+  z-index: 1;
   box-shadow: 0px 1px 3px #000000;
   position: sticky;
   top: 0;
@@ -58,9 +59,7 @@ tr.has-passed td {
 .cus1{
   background-color: #202427;
   color: #9ba1a6;
-  border-radius: 20px;
   text-align: center;
-  border:2px solid transparent;
 }
 
 .land-link > div > a{
