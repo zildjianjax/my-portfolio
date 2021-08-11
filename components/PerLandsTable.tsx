@@ -25,7 +25,7 @@ const PerLandsTable: React.FC<PerLandTableProps> = ({
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(4);
   const totalLands = Object.keys(lands).length - 1;
-  const perPageOptions = [4, 6, 8, 10];
+  const perPageOptions = [4, 6, 8, 10, 15, 20];
 
   useEffect(() => {
     handlePagination(page);

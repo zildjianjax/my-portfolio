@@ -20,7 +20,7 @@ export default function Home() {
   const [plants, setPlants] = useState({});
   const [isFetching, setIsFetching] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isCanonical, setIsCanonical] = useState(true);
+  const [isCanonical, setIsCanonical] = useState(false);
 
   const fetchData = async () => {
     if (isFetching) {
@@ -57,16 +57,21 @@ export default function Home() {
 
   const CanonicalField: React.FC = () => {
     return (
-      <div className="flex space-x-2 items-center rounded">
-        <div className="checkbox">
-            <input id="box"
-            type="checkbox"
-            checked={isCanonical}
-            onChange={handleIsCanonical}
-           />
-           <label htmlFor="box" className="text-gray-300">Canonical</label>
-        </div>  
-      </div>
+      <AdminCheck>
+        <div className="flex space-x-2 items-center rounded">
+          <div className="checkbox">
+            <input
+              id="box"
+              type="checkbox"
+              checked={isCanonical}
+              onChange={handleIsCanonical}
+            />
+            <label htmlFor="box" className="text-gray-300">
+              Canonical
+            </label>
+          </div>
+        </div>
+      </AdminCheck>
     );
   };
 
@@ -87,20 +92,26 @@ export default function Home() {
               <Summary />
               <AccountSwitcher lands={lands} />
             </AdminCheck>
-            {!isCanonical && <PerLandsTable
-              isLoaded={isLoaded}
-              lands={lands as CommonCollection<Land>}
-              plants={plants}
-              user={user}
-              CanonicalField={CanonicalField}
-            />}
-            {isCanonical && <PerPlantsTable
-              isLoaded={isLoaded}
-              lands={lands as CommonCollection<Land>}
-              plants={plants}
-              user={user}
-              CanonicalField={CanonicalField}
-            />}
+            {!isCanonical && (
+              <PerLandsTable
+                isLoaded={isLoaded}
+                lands={lands as CommonCollection<Land>}
+                plants={plants}
+                user={user}
+                CanonicalField={CanonicalField}
+              />
+            )}
+            {isCanonical && (
+              <AdminCheck>
+                <PerPlantsTable
+                  isLoaded={isLoaded}
+                  lands={lands as CommonCollection<Land>}
+                  plants={plants}
+                  user={user}
+                  CanonicalField={CanonicalField}
+                />
+              </AdminCheck>
+            )}
           </div>
         </AuthCheck>
       </div>
