@@ -18,7 +18,7 @@ const Filters: React.FC<{
 }) => {
   return (
     <div
-      className={`flex justify-end mt-3 space-x-4 ${
+      className={`flex justify-end mt-3 space-x-4 items-center ${
         stickToBottom && "sticky bottom-0"
       }`}
     >
