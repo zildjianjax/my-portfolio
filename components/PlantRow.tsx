@@ -3,7 +3,7 @@ import { Common, Plant } from "../lib/interface";
 import AdminCheck from "./AdminCheck";
 import moment from "moment";
 
-const PlantRow: React.FC<{ plant: Plant }> = ({ plant }) => {
+const PlantRow: React.FC<{ plant: Plant | Common }> = ({ plant }) => {
   const displayTimer = (plant: Plant | Common | undefined) => {
     return `${moment(plant?.resetTime).format("hh:mm:ss a")} (
       ${

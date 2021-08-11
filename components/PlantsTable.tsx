@@ -5,14 +5,16 @@ import {
   Land as LandInterface,
   Plant,
 } from "../lib/interface";
-import Land from "./Land";
+import LandRow from "./LandRow";
 import AdminCheck from "./AdminCheck";
+import CanonicalLandPlants from "./CanonicalLandPlants";
+import CanonicalPlantRows from "./CanonicalPlantRows";
 
-const Lands: React.FC<{
+const PlantsTable: React.FC<{
   lands: CommonCollection<LandInterface>;
-  plants: CommonCollection<Plant>;
+  plants: Plant[];
   user: firebase.User | null | undefined;
-}> = ({ lands, plants, user }) => {
+}> = ({ lands, plants }) => {
   return (
     <div>
       <table className="mt-5 cus1">
@@ -37,14 +39,19 @@ const Lands: React.FC<{
           </tr>
         </thead>
         <tbody>
-          {lands &&
-            Object.values(lands).map((land, index) => (
-              <Land key={index} land={land} plants={plants} user={user} />
-            ))}
+          {Object.values(plants).map((plant, index) => {
+            return (
+              <CanonicalPlantRows
+                key={index}
+                land={lands[plant.landId]}
+                plant={plant}
+              />
+            );
+          })}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default Lands;
+export default PlantsTable;

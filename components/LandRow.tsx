@@ -6,28 +6,28 @@ import {
   Plant,
 } from "../lib/interface";
 import AddPlant from "./AddPlant";
-import moment from "moment";
 import _ from "lodash";
 import firebase from "firebase";
 import { getTimeDiff, stripAddress } from "../lib/helpers";
 import AdminCheck from "./AdminCheck";
 import PlantRow from "./PlantRow";
 
-const Land: React.FC<{
+const LandRow: React.FC<{
   land: LandInterface | Common;
   plants: CommonCollection<Plant>;
-  user: firebase.User | null | undefined;
-}> = ({ land, plants, user }) => {  
+  user?: firebase.User | null | undefined;
+}> = ({ land, plants }) => {
   const [landPlants, setLandPlants] = useState<LandInterface[] | Common[]>([]);
   const [firstRow, setFirstRow] = useState<Plant | Common>();
   const [plantCount, setPlantCount] = useState<number>(0);
-  const [timer, steTimer] = useState<number>(0);  
+  const [timer, steTimer] = useState<number>(0);
 
   let interval: { current: NodeJS.Timeout | null } = useRef(null);
 
-  const generateHourDiff = useCallback(() => {    
+  const generateHourDiff = useCallback(() => {
     let landPlantsArray: Plant[] | Common[] =
-      Object.values(plants).filter((plant) => plant.landId == land.address) || [];
+      Object.values(plants).filter((plant) => plant.landId == land.address) ||
+      [];
 
     landPlantsArray = landPlantsArray.map((plant: Plant | Common):
       | Plant
@@ -101,4 +101,4 @@ const Land: React.FC<{
   );
 };
 
-export default Land;
+export default LandRow;
