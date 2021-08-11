@@ -14,7 +14,7 @@ const Filters: React.FC<{
       <div className="flex space-x-2 items-center">
         <label className="text-gray-300">Lands Per Page:</label>
         <select
-          className="px-2 py-1 rounded"
+          className="px-2 py-1 rounded bg-white"
           onChange={(e) => setPerPage((e.target.value as unknown) as number)}
         >
           {perPageOptions.map(option => <option key={option} value={option}>{option}</option>)}
