@@ -83,7 +83,7 @@ export default function Home() {
                 Sync Data
               </button>
               <Summary />
-              <AccountSwitcher />
+              <AccountSwitcher lands={lands} />
             </AdminCheck>
             {!isCanonical && <PerLandsTable
               isLoaded={isLoaded}
