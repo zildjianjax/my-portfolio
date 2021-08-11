@@ -7,6 +7,7 @@ export const guest: string[] | undefined[] | null[] = [
   "bontilaomelberth@gmail.com",
   "oliszildjianjax@gmail.com",
   "aldingumera@gmail.com",
+  "lasijoe2gmail.com",
 ];
 
 export const user_id: string = "LTd19OPAM9P1hk9BIrqwjLUezyH3";
