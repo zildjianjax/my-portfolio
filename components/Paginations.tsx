@@ -30,8 +30,8 @@ const Paginations: React.FC<{
       return (
         <li key={page_index}>
           <a
-            className={`border cursor-pointer flex h-8 items-center justify-center rounded w-8 ${
-              page_index == page && "bg-blue-500 text-white"
+            className={`cursor-pointer flex h-8 items-center justify-center rounded w-8 ${
+              page_index == page && "clicked"
             }`}
             onClick={() => handlePagination(page_index)}
           >
@@ -43,8 +43,8 @@ const Paginations: React.FC<{
   };
 
   return (
-    <div>
-      <ul className="flex space-x-3 justify-center my-10">
+    <div className="flex justify-center">
+      <ul className="flex space-x-3 justify-center my-10 pag-b">
         <li>
           <a
             className={`border cursor-pointer flex h-8 items-center justify-center rounded w-12 ${

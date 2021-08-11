@@ -50,7 +50,7 @@ const AddAccount = () => {
   };
   return (
     <div>
-      <button className="btn btn-success" onClick={handleOpen}>
+      <button className="btn btn-success rounded-2xl" onClick={handleOpen}>
         Add Account
       </button>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -73,7 +73,7 @@ const AddAccount = () => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn btn-warning rounded-2xl">
                 Save
               </button>
             </ModalFooter>

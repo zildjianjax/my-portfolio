@@ -19,22 +19,22 @@ const LandsTable: React.FC<{
       <table className="mt-5 cus1">
         <thead className="text-center">
           <tr>
-            <th rowSpan={2} className="text-center w-3/12">
+            <th rowSpan={2} className="text-center w-3/12 p-4">
               Land
             </th>
-            <th colSpan={5} className="text-center">
+            <th colSpan={5} className="text-center p-4">
               Plant
             </th>
-            <th rowSpan={2} className="text-center">
+            <th rowSpan={2} className="text-center p-4">
               Actions
             </th>
           </tr>
           <tr>
-            <th>Reset In</th>
-            <th>Page</th>
-            <th>Card Index</th>
-            <th>Element</th>
-            <th>ID</th>
+            <th className="p-4">Reset In</th>
+            <th className="p-4">Page</th>
+            <th className="p-4">Card Index</th>
+            <th className="p-4">Element</th>
+            <th className="p-4">ID</th>
           </tr>
         </thead>
         <tbody>

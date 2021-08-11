@@ -19,9 +19,19 @@
 table {
   @apply text-left w-full;
 }
+th, thead{
+  z-index: 1;
+  box-shadow: 0px 1px 3px #000000;
+  position: sticky;
+  top: 0;
+  background: #202427;
+}
 th, td {
   border: 1px solid #0000005e;
   @apply p-2 border;
+}
+.lastplant{
+  box-shadow: 0px 1px 3px #000000;
 }
 
 tr.in-one-min td {
@@ -39,7 +49,7 @@ tr.has-passed td {
   background-color: #202427;
   border: none;
 }
-.bheader{
+.rounded-md{
   background-color: #202427;
   border-color: transparent;
 }
@@ -49,10 +59,9 @@ tr.has-passed td {
 .cus1{
   background-color: #202427;
   color: #9ba1a6;
-  border-radius: 20px;
   text-align: center;
-  border:1px solid transparent;
 }
+
 .land-link > div > a{
   float: left;
 }
@@ -64,4 +73,21 @@ tr.has-passed td {
 .coorxy{
   color: #f59e0b;
   padding: 0 13px;
+}
+.btn{
+  color: #000000ab;
+}
+.btn-default{
+  background-color: #5dadd6;
+}
+.btn-warning{
+  background-color: #d6ad5b;
+}
+.clicked{
+  background-color: #f59e0b!important;
+  @apply text-black;
+}
+
+.pag-b a{
+  background-color: #9ba1a6;
 }

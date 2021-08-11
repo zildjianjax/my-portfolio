@@ -87,12 +87,12 @@ const LandRow: React.FC<{
         {firstRow && <PlantRow plant={firstRow as Plant} />}
       </tr>
       {plants &&
-        landPlants.map((plant) => (
+        landPlants.map((plant, index) => (
           <tr
             key={plant?.readableId}
             className={`${plant?.isFiveMinutesRemaining && "in-one-min"} ${
               plant?.hasRecentlyPassed && "has-passed"
-            }`}
+            } ${index + 1 == landPlants.length && 'lastplant'}`}
           >
             <PlantRow plant={plant as Plant} />
           </tr>

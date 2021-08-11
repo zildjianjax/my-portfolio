@@ -70,6 +70,7 @@ const PerLandsTable: React.FC<PerLandTableProps> = ({
         CanonicalField={CanonicalField}
         perPageOptions={perPageOptions}
         PaginationField={PaginationField}
+        stickToBottom
       />
     </>
   );

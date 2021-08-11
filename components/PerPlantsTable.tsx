@@ -89,6 +89,7 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
         CanonicalField={CanonicalField}
         perPageOptions={perPageOptions}
         PaginationField={PaginationField}
+        stickToBottom
       />
     </>
   );

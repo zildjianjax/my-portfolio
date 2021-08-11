@@ -5,9 +5,10 @@ const Filters: React.FC<{
   CanonicalField: React.FC;
   PaginationField?: React.FC;
   perPageOptions: number[];
-}> = ({ setPerPage, CanonicalField, perPageOptions, PaginationField }) => {
+  stickToBottom?: boolean;
+}> = ({ setPerPage, CanonicalField, perPageOptions, PaginationField, stickToBottom }) => {
   return (
-    <div className="flex justify-end mt-3 space-x-4">
+    <div className={`flex justify-end mt-3 space-x-4 ${stickToBottom && 'sticky bottom-0'}`}>
       {PaginationField && <PaginationField />}
       <CanonicalField />
       <div className="flex space-x-2 items-center">
@@ -16,7 +17,7 @@ const Filters: React.FC<{
           className="px-2 py-1 rounded"
           onChange={(e) => setPerPage((e.target.value as unknown) as number)}
         >
-          {perPageOptions.map(option => <option value={option}>{option}</option>)}
+          {perPageOptions.map(option => <option key={option} value={option}>{option}</option>)}
         </select>
       </div>
     </div>

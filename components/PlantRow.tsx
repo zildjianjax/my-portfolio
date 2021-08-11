@@ -13,12 +13,12 @@ const PlantRow: React.FC<{ plant: Plant | Common }> = ({ plant }) => {
   return (
     plant && (
       <>
-        <td className="p-4">{plant && displayTimer(plant)}</td>
-        <td className="p-4">{plant?.page}</td>
-        <td className="p-4">{plant?.card}</td>
-        <td className="p-4">{plant?.element}</td>
-        <td className="p-4">{plant?.readableId}</td>
-        <td className="p-4">{plant && `Skip, Done`}</td>
+        <td className="p-2">{plant && displayTimer(plant)}</td>
+        <td className="p-2">{plant?.page}</td>
+        <td className="p-2">{plant?.card}</td>
+        <td className="p-2">{plant?.element}</td>
+        <td className="p-2">{plant?.readableId}</td>
+        <td className="p-2">{plant && `Skip, Done`}</td>
       </>
     )
   );
