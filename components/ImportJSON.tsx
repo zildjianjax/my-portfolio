@@ -45,7 +45,7 @@ const ImportJSON = () => {
 
   return (
     <div>
-      <button className="btn btn-success" onClick={handleOpen}>
+      <button className="btn btn-warning rounded-2xl" onClick={handleOpen}>
         Import JSON
       </button>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -68,7 +68,7 @@ const ImportJSON = () => {
               ></textarea>
             </ModalBody>
             <ModalFooter>
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn btn-warning rounded-2xl">
                 Import
               </button>
             </ModalFooter>

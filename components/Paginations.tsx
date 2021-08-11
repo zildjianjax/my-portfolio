@@ -13,14 +13,14 @@ const Paginations: React.FC<{
   }
 
   return (
-    <div>
-      <ul className="flex space-x-3 justify-center my-10">
+    <div className="sticky bottom-0 flex justify-center">
+      <ul className="flex space-x-3 justify-center my-10 pag-b">
         {Object.keys([...Array(totalLandPages)]).map((p) => {
           let page_index = parseInt(p) + 1;
           return (
             <li key={page_index}>
               <a
-                className={`border cursor-pointer flex h-8 items-center justify-center rounded w-8 ${page_index == page && 'bg-blue-500 text-white'}`}
+                className={`cursor-pointer flex h-8 items-center justify-center rounded w-8 ${page_index == page && 'clicked'}`}
                 onClick={() => handlePagination(page_index)}
               >
                 {page_index}
