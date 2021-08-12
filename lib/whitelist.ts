@@ -6,6 +6,7 @@ export const admin: (string | undefined | null)[] = [
 export const guest: string[] | undefined[] | null[] = [
   "vernaizryjin@gmail.com",
   "oliszildjianjax@gmail.com",
+  "jax@blaze.online",
   "aldingumera@gmail.com",
   "lasijoe@gmail.com",
 ];
