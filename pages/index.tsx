@@ -89,7 +89,7 @@ export default function Home() {
               <button onClick={onClick} className="btn btn-success">
                 Sync Data
               </button>
-              <Summary />
+              {/* <Summary /> */}
               <AccountSwitcher lands={lands} />
             </AdminCheck>
             {!isCanonical && (
