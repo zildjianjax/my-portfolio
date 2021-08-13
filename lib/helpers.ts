@@ -3,7 +3,7 @@ import moment from "moment";
 type ReturnDate = {
   differenceToNextTime: Date | string;
   hasRecentlyPassed: boolean;
-  timeRemaining: number;
+  timeRemaining: number | string;
   hoursDiff: number;
   minutesDiff: number;
   secondsDiff: number;
@@ -33,7 +33,7 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
   let timeToHours = timeToMoment.utc().format("HH:mm:ss");
 
   const startTime = moment.utc(utcTimeNow.format("HH:mm:ss"), "HH:mm a");
-  const endTime = moment.utc(timeToHours, "HH:mm a");
+  const endTime = moment.utc(timeToHours, "HH:mm:ss a");
 
   const hourDiff = startTime.diff(endTime, "hours");
   const minuteDiff = startTime.diff(endTime, "minutes");
@@ -50,16 +50,19 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
 
   const timeRemaining = startTime.diff(endTime);
 
-  let currentMs = utcTimeNow.format("X");
-  let targetMs = endTime.format("X");
-  let diffTime = parseInt(targetMs) - parseInt(currentMs);
+  let currentMs = utcTimeNow.unix();
+  let targetMs = endTime.unix();
+  let diffTime = targetMs - currentMs;
   let duration = moment.duration(diffTime * 1000, "milliseconds");
+
+  // console.log(duration.humanize());
+  
 
   const hoursDiff = duration.hours();
   const minutesDiff = duration.minutes();
   const secondsDiff = duration.seconds();
 
-  if (timeRemaining > -1) {
+  if (duration.as('milliseconds') < 0) {
     hasRecentlyPassed = true;
   }
   if (hoursDiff < 1 && minutesDiff < 2 && minutesDiff >= 0) {

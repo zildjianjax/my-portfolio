@@ -8,7 +8,7 @@ const PlantRow: React.FC<{ plant: Plant | Common }> = ({ plant }) => {
     return `${moment(plant?.resetTime).format("hh:mm:ss a")} (
       ${
         plant?.differenceToNextTime
-      } ${`${plant?.hoursDiff}:${plant?.minutesDiff}:${plant?.secondsDiff}`})`;
+      } ${`-${plant?.hoursDiff}:${(plant?.minutesDiff.length == 1 ? "0" + -plant?.minutesDiff : -plant?.minutesDiff)}:${-plant?.secondsDiff}`})`;
   };
   return (
     plant && (
