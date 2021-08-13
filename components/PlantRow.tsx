@@ -6,7 +6,7 @@ import { plantCountdownHtml } from "../lib/helpers";
 
 const PlantRow: React.FC<{
   plant: Plant | Common;
-  handleUnlock: (id: string) => void;
+  handleUnlock?: (id: string) => void;
 }> = ({ plant, handleUnlock }) => {
   const displayTimer = (plant: Plant | Common | undefined) => {
     return `${moment(plant?.resetTime).format("hh:mm:ss a")} (
@@ -23,7 +23,7 @@ const PlantRow: React.FC<{
         <td className="p-2">{plantObject?.readableId}</td>
         <td className="p-2">
           {plantObject?.locked && (
-            <button onClick={() => handleUnlock(plantObject.readableId)}>
+            <button onClick={() => handleUnlock && handleUnlock(plantObject.readableId)}>
               Done
             </button>
           )}

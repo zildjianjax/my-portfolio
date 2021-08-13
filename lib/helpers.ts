@@ -14,7 +14,7 @@ type ReturnDate = {
   moveToNextDay: boolean;
 };
 
-export const getTimeDiff = (time: Date | string, isLocked: boolean): ReturnDate => {
+export const getTimeDiff = (time: Date | string, isLocked: boolean = false): ReturnDate => {
   const utcTimeNow = moment.utc();
   let timeToMoment = moment(time);
 
