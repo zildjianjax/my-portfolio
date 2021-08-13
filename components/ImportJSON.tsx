@@ -12,6 +12,7 @@ import { SubmitHandler, useForm, UseFormHandleSubmit } from "react-hook-form";
 import { UserContext } from "../lib/context";
 import { postData } from "../lib/api";
 import { CommonCollection, Land } from "../lib/interface";
+import _ from "lodash";
 
 const ImportJSON: React.FC<{ lands: CommonCollection<Land> }> = ({ lands }) => {
   const { user } = useContext(UserContext);
@@ -46,6 +47,11 @@ const ImportJSON: React.FC<{ lands: CommonCollection<Land> }> = ({ lands }) => {
       setlandAddressValidationMessage("Land does not exists.")
       setLandAddressStatus(0)
     }
+
+    setTimeout(() => {
+      setLandAddress("")
+      setLandAddressStatus(false)
+    }, 3000);
   };
 
   const onSubmit: SubmitHandler<{ json: string }> = async (formData) => {

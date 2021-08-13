@@ -34,4 +34,5 @@ export interface Plant extends Common {
   hoursDiff: number;
   minutesDiff: number;
   secondsDiff: number;
+  locked: boolean;
 }

@@ -47,6 +47,7 @@ export default function Home() {
   const { user } = useContext(UserContext);
 
   const onClick: MouseEventHandler = async () => {
+    Alert.showLoading();
     let res = await postData("/api/sync_data");
     Alert.fire("", "Successfully synced data", "success");
   };
@@ -86,9 +87,15 @@ export default function Home() {
           <div className="container mx-auto">
             <br />
             <AdminCheck>
-              <button onClick={onClick} className="btn btn-success">
-                Sync Data
-              </button>
+              <div className="flex space-x-3">
+                <button onClick={onClick} className="btn btn-success">
+                  Sync Data
+                </button>
+                <div className="flex items-center space-x-3 text-white">
+                  <p>Total Lands: <span className="font-bold">{Object.keys(lands).length}</span></p>
+                  <p>Total Plants:  <span className="font-bold">{Object.keys(plants).length}</span></p>
+                </div>
+              </div>
               {/* <Summary /> */}
               <AccountSwitcher lands={lands} />
             </AdminCheck>

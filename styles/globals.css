@@ -48,6 +48,9 @@ tr.has-passed td {
   background-color: rgb(214 92 142 / 52%);
   color: white;
 }
+tr.is-locked td {
+  background-color: rgb(197 132 13 / 52%);
+}
 tr.has-passed .coorxy {
   @apply font-bold;
 }

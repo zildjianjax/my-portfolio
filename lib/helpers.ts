@@ -1,4 +1,6 @@
+import _ from "lodash";
 import moment from "moment";
+import { Plant } from "./interface";
 
 type ReturnDate = {
   differenceToNextTime: Date | string;
@@ -12,7 +14,7 @@ type ReturnDate = {
   moveToNextDay: boolean;
 };
 
-export const getTimeDiff = (time: Date | string): ReturnDate => {
+export const getTimeDiff = (time: Date | string, isLocked: boolean): ReturnDate => {
   const utcTimeNow = moment.utc();
   let timeToMoment = moment(time);
 
@@ -43,7 +45,7 @@ export const getTimeDiff = (time: Date | string): ReturnDate => {
   let isFiveMinutesRemaining = false;
   let isThirthyMinutesRemaing = false;
 
-  if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 4) {
+  if (!isLocked && startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 4) {
     endTime.add(1, "days");
     moveToNextDay = true;
   }
@@ -91,3 +93,23 @@ export const stripAddress = (address: string): string => {
 
   return `${firstAddress}...${lastAddress}`;
 };
+
+export const counterText = (number: number): string => {
+  return _.trim(number.toString()).length == 1 ? "0" + number : (number).toString()
+}
+
+export const plantCountdownHtml = (plant: Plant) => {
+  let hours: string;
+  let minutes: string;
+  let seconds: string;
+  if(plant.hasRecentlyPassed) {
+    hours = counterText(-plant?.hoursDiff);
+    minutes = counterText(-plant?.minutesDiff);
+    seconds = counterText(-plant?.secondsDiff);
+  } else {
+    hours = counterText(plant?.hoursDiff);
+    minutes = counterText(plant?.minutesDiff);
+    seconds = counterText(plant?.secondsDiff);
+  }
+  return `${hours}:${minutes}:${seconds}`;
+}

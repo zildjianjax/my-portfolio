@@ -7,6 +7,7 @@ import firebase from "firebase";
 import Paginations from "./Paginations";
 import { getTimeDiff } from "../lib/helpers";
 import PlantsTable from "./PlantsTable";
+import AdminCheck from "./AdminCheck";
 
 type PerPlantsTableProps = {
   isLoaded: boolean;
@@ -25,6 +26,7 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
 }) => {
   const [availablePlantsToShow, setAvailablePlantsToShow] = useState({});
   const [page, setPage] = useState(1);
+  const [plantsLocked, setPlantsLocked] = useState<string[]>(["0"]);
   const [perPage, setPerPage] = useState(20);
   const [realtime, setRealtime] = useState(true);
   const totalLands = Object.keys(plants).length - 1;
@@ -43,7 +45,7 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
     return () => {
       clearInterval(interval.current as NodeJS.Timeout);
     };
-  }, [page, perPage, isLoaded, timer, realtime]);
+  }, [page, perPage, isLoaded, timer, realtime, plantsLocked]);
 
   const handlePagination = (page_value: number): void => {
     setPage(page_value);
@@ -53,7 +55,8 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
     landPlantsArray = landPlantsArray.map((plant: Plant | Common):
       | Plant
       | Common => {
-      return { ...plant, ...getTimeDiff(plant.resetTime) };
+        let isLocked: boolean = plantsLocked.includes(plant.readableId);
+      return { ...plant, ...getTimeDiff(plant.resetTime, isLocked), locked: isLocked };
     });
 
     landPlantsArray = _.reverse(
@@ -62,6 +65,14 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
 
     setAvailablePlantsToShow(landPlantsArray);
   };
+
+  const handleLockPlant = (plant_id: string) => {
+    setPlantsLocked([...plantsLocked, plant_id])
+  }
+  const handleUnlock = (plant_id: string) => {
+    let newPlantsLocked = plantsLocked.filter(id => id !== plant_id);
+    setPlantsLocked(newPlantsLocked)
+  }
 
   const PaginationField: React.FC = () => {
     return (
@@ -78,14 +89,21 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
 
   const RealTimeField: React.FC = () => {
     return (
-      <div className="flex space-x-2 items-center">
-        <label className="text-gray-300">Realtime:</label>
-        <input
-          type="checkbox"
-          checked={realtime}
-          onChange={() => setRealtime(!realtime)}
-        />
-      </div>
+      <AdminCheck>
+        <div className="flex space-x-2 items-center rounded">
+          <div className="checkbox">
+            <input
+              id="box"
+              type="checkbox"
+              checked={realtime}
+              onChange={() => setRealtime(!realtime)}
+            />
+            <label htmlFor="box" className="text-gray-300">
+              Realtime
+            </label>
+          </div>
+        </div>
+      </AdminCheck>
     );
   };
   return (
@@ -100,6 +118,8 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
         lands={lands}
         plants={availablePlantsToShow as Plant[]}
         user={user}
+        handleLockPlant={handleLockPlant}
+        handleUnlock={handleUnlock}
       />
       <Filters
         setPerPage={setPerPage}

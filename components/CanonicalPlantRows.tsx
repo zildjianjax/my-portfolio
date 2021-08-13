@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { stripAddress } from "../lib/helpers";
 import { Common, CommonCollection, Land, Plant } from "../lib/interface";
 import PlantRow from "./PlantRow";
@@ -6,15 +6,24 @@ import PlantRow from "./PlantRow";
 const CanonicalPlantRows: React.FC<{
   plant: Plant | Common;
   land: Land | Common;
-}> = ({ plant, land }) => {
+  handleLockPlant: (plant_id: string) => void;
+  handleUnlock: (plant_id: string) => void;
+}> = ({ plant, land, handleLockPlant, handleUnlock }) => {
   return (
     <tr
       className={`${plant?.isFiveMinutesRemaining && "in-one-min"} ${
         plant?.hasRecentlyPassed && "has-passed"
+      } ${
+        plant?.locked && "is-locked"
       }`}
     >
       <td>
-        <div className="flex justify-center land-link">
+        <div className="flex land-link relative pl-7">
+          <img
+            src="img/lock.svg"
+            className="absolute left-0 cursor-pointer"
+            onClick={() => handleLockPlant(plant.readableId)}
+          />
           <div>
             <a
               href={`https://marketplace.plantvsundead.com/farm/other/${land.address}`}
@@ -30,7 +39,7 @@ const CanonicalPlantRows: React.FC<{
           </div>
         </div>
       </td>
-      <PlantRow plant={plant} />
+      <PlantRow plant={plant} handleUnlock={handleUnlock} />
     </tr>
   );
 };

@@ -6,7 +6,7 @@ export const Modal: React.FC<{ isActive: boolean }> = ({
 }) => {
   return (
     <div
-      className={`fixed z-10 inset-0 overflow-y-auto ${!isActive && "hidden"}`}
+      className={`fixed z-50 inset-0 overflow-y-auto ${!isActive && "hidden"}`}
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"

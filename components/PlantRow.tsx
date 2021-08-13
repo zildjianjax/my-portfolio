@@ -1,24 +1,33 @@
 import React from "react";
 import { Common, Plant } from "../lib/interface";
-import AdminCheck from "./AdminCheck";
 import moment from "moment";
+import _ from "lodash";
+import { plantCountdownHtml } from "../lib/helpers";
 
-const PlantRow: React.FC<{ plant: Plant | Common }> = ({ plant }) => {
+const PlantRow: React.FC<{
+  plant: Plant | Common;
+  handleUnlock: (id: string) => void;
+}> = ({ plant, handleUnlock }) => {
   const displayTimer = (plant: Plant | Common | undefined) => {
     return `${moment(plant?.resetTime).format("hh:mm:ss a")} (
-      ${
-        plant?.differenceToNextTime
-      } ${`-${plant?.hoursDiff}:${(plant?.minutesDiff.length == 1 ? "0" + -plant?.minutesDiff : -plant?.minutesDiff)}:${-plant?.secondsDiff}`})`;
+      ${plant?.differenceToNextTime} ${plantCountdownHtml(plant as Plant)})`;
   };
+  let plantObject = plant as Plant;
   return (
-    plant && (
+    (plantObject as Plant) && (
       <>
-        <td className="p-2">{plant && displayTimer(plant)}</td>
-        <td className="p-2">{plant?.page}</td>
-        <td className="p-2">{plant?.card}</td>
-        <td className="p-2">{plant?.element}</td>
-        <td className="p-2">{plant?.readableId}</td>
-        <td className="p-2">{plant && `Skip, Done`}</td>
+        <td className="p-2">{plantObject && displayTimer(plantObject)}</td>
+        <td className="p-2">{plantObject?.page}</td>
+        <td className="p-2">{plantObject?.card}</td>
+        <td className="p-2">{plantObject?.element}</td>
+        <td className="p-2">{plantObject?.readableId}</td>
+        <td className="p-2">
+          {plantObject?.locked && (
+            <button onClick={() => handleUnlock(plantObject.readableId)}>
+              Done
+            </button>
+          )}
+        </td>
       </>
     )
   );

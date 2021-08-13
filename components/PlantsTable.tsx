@@ -13,11 +13,13 @@ const PlantsTable: React.FC<{
   lands: CommonCollection<LandInterface>;
   plants: Plant[];
   user: firebase.User | null | undefined;
-}> = ({ lands, plants }) => {
+  handleLockPlant: (plant_id: string) => void;
+  handleUnlock: (plant_id: string) => void;
+}> = ({ lands, plants, handleLockPlant, handleUnlock }) => {
   return (
     <div>
       <table className="mt-5 cus1">
-        <thead className="text-center">
+        <thead className="text-center z-30">
           <tr>
             <th rowSpan={2} className="text-center w-3/12">
               Land
@@ -44,6 +46,8 @@ const PlantsTable: React.FC<{
                 key={index}
                 land={lands[plant.landId]}
                 plant={plant}
+                handleLockPlant={handleLockPlant}
+                handleUnlock={handleUnlock}
               />
             );
           })}

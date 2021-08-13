@@ -18,12 +18,12 @@ const Filters: React.FC<{
 }) => {
   return (
     <div
-      className={`flex justify-end mt-3 space-x-4 items-center z-50 ${
+      className={`flex justify-end mt-3 space-x-4 items-center z-30 ${
         stickToBottom && "sticky bottom-0"
       }`}
     >
       {PaginationField && <PaginationField />}
-      <AdminCheck>{RealTimeField && <RealTimeField />}</AdminCheck>
+      {RealTimeField && <RealTimeField />}
       <CanonicalField />
       <div className="flex space-x-2 items-center">
         <label className="text-gray-300">Lands Per Page:</label>
