@@ -9,8 +9,8 @@ const PlantRow: React.FC<{
   plant: Plant | Common;
   handleUnlock?: (id: string) => void;
   handleUpdateCount?: () => void;
-  crow: boolean;
-  crowHours: number;
+  crow?: boolean;
+  crowHours?: number;
 }> = ({ plant, handleUnlock, handleUpdateCount, crow, crowHours }) => {
   let plantObject = plant as Plant;
   return (
@@ -21,8 +21,8 @@ const PlantRow: React.FC<{
             <PlantTimer
               plant={plantObject}
               handleUpdateCount={handleUpdateCount}
-              crow={crow}
-              crowHours={crowHours}
+              crow={crow as boolean}
+              crowHours={crowHours as number}
             />
           }
         </td>
