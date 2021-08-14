@@ -16,14 +16,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       const logEvent = (url: string) => {
         analytics().setCurrentScreen(url);
         analytics().logEvent('screen_view');
-        analytics().setUserId(userData.user?.uid as string);
-        analytics().setUserProperties({ displayName: userData.user?.displayName, email: userData.user?.email, uid: userData.user?.uid});
       }
 
       routers.events.on('routeChangeComplete', logEvent);
       //For First Page
+      analytics().setUserId(userData.user?.uid as string);
+      analytics().setUserProperties({ displayName: userData.user?.displayName, email: userData.user?.email, uid: userData.user?.uid});
       logEvent(window.location.pathname);
-
+      
       //Remvove Event Listener after un-mount
       return () => {
         routers.events.off('routeChangeComplete', logEvent);

@@ -93,12 +93,12 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
         <div className="flex space-x-2 items-center rounded">
           <div className="checkbox">
             <input
-              id="box"
+              id="realtime"
               type="checkbox"
               checked={realtime}
               onChange={() => setRealtime(!realtime)}
             />
-            <label htmlFor="box" className="text-gray-300">
+            <label htmlFor="realtime" className="text-gray-300">
               Realtime
             </label>
           </div>

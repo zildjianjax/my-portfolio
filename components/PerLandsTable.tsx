@@ -29,7 +29,6 @@ const PerLandsTable: React.FC<PerLandTableProps> = ({
 
   useEffect(() => {
     handlePagination(page);
-    console.log("paginate triggered");
   }, [page, perPage, isLoaded]);
 
   const handlePagination = (page_value: number): void => {

@@ -62,12 +62,12 @@ export default function Home() {
         <div className="flex space-x-2 items-center rounded">
           <div className="checkbox">
             <input
-              id="box"
+              id="canonical"
               type="checkbox"
               checked={isCanonical}
               onChange={handleIsCanonical}
             />
-            <label htmlFor="box" className="text-gray-300">
+            <label htmlFor="canonical" className="text-gray-300">
               Canonical
             </label>
           </div>
