@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       };
     }
     
-  }, [])
+  }, [userData.user])
   return (
     <UserContext.Provider value={userData}>
       <Navbar />
