@@ -45,21 +45,18 @@ const Paginations: React.FC<{
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value as unknown as number;
+    let value = parseInt(e.target.value);
     if(value > totalLandPages) {
       value = totalLandPages;
     } else if(value < 1) {
       value = 1;
     }
     setLocalPage(value);
-    console.log('value', value);
     
     handlePaginationInputChange(value)
   }
 
-  const handlePaginationInputChange = _.debounce((value) => {
-    console.log(value);
-    
+  const handlePaginationInputChange = _.debounce((value) => {    
     handlePagination(value)
   } , 1000);
 
@@ -69,9 +66,9 @@ const Paginations: React.FC<{
         <li>
           <a
             className={`border cursor-pointer flex h-8 items-center justify-center rounded w-12 ${
-              page == 1 && "opacity-30"
+              localPage == 1 && "opacity-30"
             }`}
-            onClick={() => page != 1 && handlePagination(1)}
+            onClick={() => localPage != 1 && handlePagination(1)}
           >
             First
           </a>
@@ -79,9 +76,9 @@ const Paginations: React.FC<{
         <li>
           <a
             className={`border cursor-pointer flex h-8 items-center justify-center rounded w-12 ${
-              page == 1 && "opacity-30"
+              localPage == 1 && "opacity-30"
             }`}
-            onClick={() => page != 1 && handlePagination(page - 1)}
+            onClick={() => localPage != 1 && handlePagination(localPage - 1)}
           >
             Prev
           </a>
@@ -94,9 +91,9 @@ const Paginations: React.FC<{
         <li>
           <a
             className={`border cursor-pointer flex h-8 items-center justify-center rounded w-12 ${
-              page == totalLandPages && "opacity-30"
+              localPage == totalLandPages && "opacity-30"
             }`}
-            onClick={() => page != totalLandPages && handlePagination(page + 1)}
+            onClick={() => localPage != totalLandPages && handlePagination(localPage + 1)}
           >
             Next
           </a>

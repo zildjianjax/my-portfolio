@@ -41,6 +41,8 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
   }, [page, perPage, isLoaded, realtime, plantsLocked, updateCount]);
 
   const handlePagination = (page_value: number): void => {
+    console.log(page_value as number);
+    
     setPage(page_value);
 
     let landPlantsArray: Plant[] | Common[] = Object.values(plants) || [];
