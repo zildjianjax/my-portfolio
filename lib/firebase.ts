@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/analytics"
 import { Common, CommonCollection } from "./interface";
 
 const firebaseConfig: Object = {
@@ -10,11 +11,13 @@ const firebaseConfig: Object = {
   projectId: "plantsvsundead-f559c",
   storageBucket: "plantsvsundead-f559c.appspot.com",
   messagingSenderId: "1068991784025",
-  appId: "1:1068991784025:web:81fde231d5459ce3793d48"
+  appId: "1:1068991784025:web:81fde231d5459ce3793d48",
+  measurementId: "G-9K7SRJ5NF6"
 };
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
 }
 
 export const auth = firebase.auth();
