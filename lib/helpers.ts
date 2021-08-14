@@ -57,12 +57,10 @@ export const getTimeDiff = (
         moveToNextDay = true;
       }
     }
-  } else {
-    if (startTime.isAfter(endTime) && (hourDiff >= crowHours && hourDiff <= crowHours + 1) && minuteDiff >= 1) {
-      if (!(isLocked && minuteDiff < 3)) {
-        endTime.add(1, "days");
-        moveToNextDay = true;
-      }
+  } else {    
+    if (startTime.isAfter(endTime) && hourDiff >= crowHours && minuteDiff >= 5) {
+      endTime.add(1, "days");
+      moveToNextDay = true;
     }
   }
 
