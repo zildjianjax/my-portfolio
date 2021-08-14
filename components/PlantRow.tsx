@@ -8,7 +8,7 @@ import PlantTimer from "./PlantTimer";
 const PlantRow: React.FC<{
   plant: Plant | Common;
   handleUnlock?: (id: string) => void;
-  handleUpdateCount: () => void;
+  handleUpdateCount?: () => void;
 }> = ({ plant, handleUnlock, handleUpdateCount }) => {
   let plantObject = plant as Plant;
   return (
