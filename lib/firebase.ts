@@ -6,13 +6,13 @@ import "firebase/analytics"
 import { Common, CommonCollection } from "./interface";
 
 const firebaseConfig: Object = {
-  apiKey: "AIzaSyAR8PqVDilAQq78IeeZbtrkvtmHcOs_TC8",
-  authDomain: "plantsvsundead-f559c.firebaseapp.com",
-  projectId: "plantsvsundead-f559c",
-  storageBucket: "plantsvsundead-f559c.appspot.com",
-  messagingSenderId: "1068991784025",
-  appId: "1:1068991784025:web:81fde231d5459ce3793d48",
-  measurementId: "G-9K7SRJ5NF6"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_GA_ID
 };
 
 if (!firebase.apps.length) {
