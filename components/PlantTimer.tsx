@@ -6,19 +6,24 @@ import { Common, Plant } from "../lib/interface";
 const PlantTimer: React.FC<{
   plant: Plant;
   handleUpdateCount?: () => void;
-}> = ({ plant, handleUpdateCount }) => {
+  crow: boolean;
+  crowHours: number;
+}> = ({ plant, handleUpdateCount, crow, crowHours }) => {
   const [timer, steTimer] = useState<number>(0);
   let interval: { current: NodeJS.Timeout | null } = useRef(null);
   const [display, setDisplay] = useState<string>();
   useEffect(() => {
     let updatedPlant = {
       ...plant,
-      ...getTimeDiff(plant.resetTime, plant.locked),
+      ...getTimeDiff(plant.resetTime, plant.locked, crow, crowHours),
     };
 
-    if (updatedPlant.moveToNextDay != plant.moveToNextDay || updatedPlant.isFiveMinutesRemaining != plant.isFiveMinutesRemaining ||
-      updatedPlant.hasRecentlyPassed != plant.hasRecentlyPassed) {
-        handleUpdateCount && handleUpdateCount();
+    if (
+      updatedPlant.moveToNextDay != plant.moveToNextDay ||
+      updatedPlant.isFiveMinutesRemaining != plant.isFiveMinutesRemaining ||
+      updatedPlant.hasRecentlyPassed != plant.hasRecentlyPassed
+    ) {
+      handleUpdateCount && handleUpdateCount();
     }
 
     setDisplay(displayTimer(updatedPlant));

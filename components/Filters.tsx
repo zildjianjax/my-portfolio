@@ -6,6 +6,7 @@ const Filters: React.FC<{
   CanonicalField: React.FC;
   PaginationField?: React.FC;
   RealTimeField?: React.FC;
+  CrowField?: React.FC;
   perPageOptions: number[];
   stickToBottom?: boolean;
 }> = ({
@@ -14,6 +15,7 @@ const Filters: React.FC<{
   perPageOptions,
   PaginationField,
   RealTimeField,
+  CrowField,
   stickToBottom,
 }) => {  
   return (
@@ -25,8 +27,9 @@ const Filters: React.FC<{
       {PaginationField && <PaginationField />}
       {RealTimeField && <RealTimeField />}
       <CanonicalField />
+      {CrowField && <CrowField />}
       <div className="flex space-x-2 items-center">
-        <label className="text-gray-300">Lands Per Page:</label>
+        <label className="text-gray-300">Records Per Page:</label>
         <select
           className="px-2 py-1 rounded bg-white"
           onChange={(e) => setPerPage((e.target.value as unknown) as number)}

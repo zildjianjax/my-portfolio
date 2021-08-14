@@ -16,7 +16,9 @@ const PlantsTable: React.FC<{
   handleLockPlant: (plant_id: string) => void;
   handleUnlock: (plant_id: string) => void;
   handleUpdateCount: () => void;
-}> = ({ lands, plants, handleLockPlant, handleUnlock, handleUpdateCount }) => {
+  crow: boolean;
+  crowHours: number;
+}> = ({ lands, plants, handleLockPlant, handleUnlock, handleUpdateCount, crow, crowHours }) => {
   return (
     <div className="overflow-x-auto">
       <table className="mt-5 cus1">
@@ -50,6 +52,8 @@ const PlantsTable: React.FC<{
                 handleLockPlant={handleLockPlant}
                 handleUnlock={handleUnlock}
                 handleUpdateCount={handleUpdateCount}
+                crow={crow}
+                crowHours={crowHours}
               />
             );
           })}

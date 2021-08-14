@@ -16,7 +16,9 @@ type ReturnDate = {
 
 export const getTimeDiff = (
   time: Date | string,
-  isLocked: boolean = false
+  isLocked: boolean = false,
+  crow: boolean = false,
+  crowHours: number = 2
 ): ReturnDate => {
   const utcTimeNow = moment.utc();
   let timeToMoment = moment(time);
@@ -48,10 +50,19 @@ export const getTimeDiff = (
   let isFiveMinutesRemaining = false;
   let isThirthyMinutesRemaing = false;
 
-  if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 1) {
-    if (!(isLocked && minuteDiff < 3)) {
-      endTime.add(1, "days");
-      moveToNextDay = true;
+  if (!crow) {
+    if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 1) {
+      if (!(isLocked && minuteDiff < 3)) {
+        endTime.add(1, "days");
+        moveToNextDay = true;
+      }
+    }
+  } else {
+    if (startTime.isAfter(endTime) && (hourDiff >= crowHours && hourDiff <= crowHours + 1) && minuteDiff >= 1) {
+      if (!(isLocked && minuteDiff < 3)) {
+        endTime.add(1, "days");
+        moveToNextDay = true;
+      }
     }
   }
 

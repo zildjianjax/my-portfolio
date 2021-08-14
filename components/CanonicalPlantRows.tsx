@@ -9,7 +9,17 @@ const CanonicalPlantRows: React.FC<{
   handleLockPlant: (plant_id: string) => void;
   handleUnlock: (plant_id: string) => void;
   handleUpdateCount: () => void;
-}> = ({ plant, land, handleLockPlant, handleUnlock, handleUpdateCount }) => {
+  crow: boolean;
+  crowHours: number;
+}> = ({
+  plant,
+  land,
+  handleLockPlant,
+  handleUnlock,
+  handleUpdateCount,
+  crow,
+  crowHours,
+}) => {
   return (
     <tr
       className={`${plant?.isFiveMinutesRemaining && "in-one-min"} ${
@@ -42,6 +52,8 @@ const CanonicalPlantRows: React.FC<{
         plant={plant}
         handleUnlock={handleUnlock}
         handleUpdateCount={handleUpdateCount}
+        crow={crow}
+        crowHours={crowHours}
       />
     </tr>
   );
