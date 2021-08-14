@@ -45,9 +45,11 @@ export const getTimeDiff = (time: Date | string, isLocked: boolean = false): Ret
   let isFiveMinutesRemaining = false;
   let isThirthyMinutesRemaing = false;
 
-  if (!isLocked && startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 1) {
-    endTime.add(1, "days");
-    moveToNextDay = true;
+  if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 1) {
+    if((!isLocked && minuteDiff >= 1)) {
+      endTime.add(1, "days");
+      moveToNextDay = true;
+    }
   }
 
   const timeRemaining = startTime.diff(endTime);
