@@ -17,7 +17,10 @@ const firebaseConfig: Object = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+}
+
+if(typeof window != undefined){
+  firebase.analytics()
 }
 
 export const auth = firebase.auth();
