@@ -19,9 +19,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-if(typeof window != undefined){
-  firebase.analytics()
-}
+export const analytics = firebase.analytics;
 
 export const auth = firebase.auth();
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
