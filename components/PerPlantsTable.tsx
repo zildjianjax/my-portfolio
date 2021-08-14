@@ -32,20 +32,13 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
   const totalLands = Object.keys(plants).length - 1;
   const perPageOptions = [20, 50, 100];
 
-  const [timer, steTimer] = useState<number>(0);
-  let interval: { current: NodeJS.Timeout | null } = useRef(null);
+  const [updateCount, setUpdateCount] = useState(1);
 
   useEffect(() => {
     handlePagination(page);
-    if (realtime) {
-      interval.current = setInterval(() => {
-        steTimer(timer + 1);
-      }, 1000);
-    }
-    return () => {
-      clearInterval(interval.current as NodeJS.Timeout);
-    };
-  }, [page, perPage, isLoaded, timer, realtime, plantsLocked]);
+    console.log('rerendered table');
+    
+  }, [page, perPage, isLoaded, realtime, plantsLocked, updateCount]);
 
   const handlePagination = (page_value: number): void => {
     setPage(page_value);
@@ -66,8 +59,21 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
     setAvailablePlantsToShow(landPlantsArray);
   };
 
+  const handleUpdateCount = () => {
+    console.log('countupdated');
+    
+    setUpdateCount(updateCount + 1)
+  }
+
   const handleLockPlant = (plant_id: string) => {
-    setPlantsLocked([...plantsLocked, plant_id])
+    let newPlants = [...plantsLocked]
+    
+    if(plantsLocked.includes(plant_id)) {
+      newPlants = newPlants.filter(id => id !== plant_id);
+    } else {
+      newPlants.push(plant_id)
+    }
+    setPlantsLocked(newPlants)
   }
   const handleUnlock = (plant_id: string) => {
     let newPlantsLocked = plantsLocked.filter(id => id !== plant_id);
@@ -120,6 +126,7 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
         user={user}
         handleLockPlant={handleLockPlant}
         handleUnlock={handleUnlock}
+        handleUpdateCount={handleUpdateCount}
       />
       <Filters
         setPerPage={setPerPage}

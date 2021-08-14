@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { stripAddress } from "../lib/helpers";
 import { Common, CommonCollection, Land, Plant } from "../lib/interface";
 import PlantRow from "./PlantRow";
@@ -8,14 +8,13 @@ const CanonicalPlantRows: React.FC<{
   land: Land | Common;
   handleLockPlant: (plant_id: string) => void;
   handleUnlock: (plant_id: string) => void;
-}> = ({ plant, land, handleLockPlant, handleUnlock }) => {
+  handleUpdateCount: () => void;
+}> = ({ plant, land, handleLockPlant, handleUnlock, handleUpdateCount }) => {
   return (
     <tr
       className={`${plant?.isFiveMinutesRemaining && "in-one-min"} ${
         plant?.hasRecentlyPassed && "has-passed"
-      } ${
-        plant?.locked && "is-locked"
-      }`}
+      } ${plant?.locked && "is-locked"}`}
     >
       <td>
         <div className="flex land-link relative pl-7">
@@ -39,7 +38,11 @@ const CanonicalPlantRows: React.FC<{
           </div>
         </div>
       </td>
-      <PlantRow plant={plant} handleUnlock={handleUnlock} />
+      <PlantRow
+        plant={plant}
+        handleUnlock={handleUnlock}
+        handleUpdateCount={handleUpdateCount}
+      />
     </tr>
   );
 };

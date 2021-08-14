@@ -3,7 +3,7 @@ import React, { ReactElement, ReactNode } from "react";
 import { useContext } from "react";
 import { UserContext } from "../lib/context";
 
-const AuthCheck: React.FC<{ fallback?: React.ElementType }> = ({
+const AuthCheck: React.FC<{ fallback?: React.ElementType | JSX.Element }> = ({
   children,
   fallback,
 }) => {

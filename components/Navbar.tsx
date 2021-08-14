@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../lib/context";
 import AuthCheck from "./AuthCheck";
 import Google from "./Authentication/Google";
@@ -13,9 +13,20 @@ const Navbar = () => {
     <nav className="border-b p-4 nav3s">
       <ul className="flex justify-between items-center">
         <li>
-          <Link href="/" passHref>
-            <button className="logo"><img src="https://plantvsundead.com/assets/img/Logo%20game.png" alt="Plant vs Undead - Your NFT Garden"/></button>
-          </Link>
+          <AuthCheck
+            fallback={
+              (<h2 className="text-white">My Portfolio</h2>) as JSX.Element
+            }
+          >
+            <Link href="/" passHref>
+              <button className="logo">
+                <img
+                  src="img/Logo%20game.png"
+                  alt="Plant vs Undead - Your NFT Garden"
+                />
+              </button>
+            </Link>
+          </AuthCheck>
         </li>
 
         <AuthCheck>

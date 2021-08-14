@@ -14,7 +14,10 @@ type ReturnDate = {
   moveToNextDay: boolean;
 };
 
-export const getTimeDiff = (time: Date | string, isLocked: boolean = false): ReturnDate => {
+export const getTimeDiff = (
+  time: Date | string,
+  isLocked: boolean = false
+): ReturnDate => {
   const utcTimeNow = moment.utc();
   let timeToMoment = moment(time);
 
@@ -46,7 +49,7 @@ export const getTimeDiff = (time: Date | string, isLocked: boolean = false): Ret
   let isThirthyMinutesRemaing = false;
 
   if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 1) {
-    if((!isLocked && minuteDiff >= 1)) {
+    if (!(isLocked && minuteDiff < 3)) {
       endTime.add(1, "days");
       moveToNextDay = true;
     }
@@ -60,13 +63,12 @@ export const getTimeDiff = (time: Date | string, isLocked: boolean = false): Ret
   let duration = moment.duration(diffTime * 1000, "milliseconds");
 
   // console.log(duration.humanize());
-  
 
   const hoursDiff = duration.hours();
   const minutesDiff = duration.minutes();
   const secondsDiff = duration.seconds();
 
-  if (duration.as('milliseconds') < 0) {
+  if (duration.as("milliseconds") < 0) {
     hasRecentlyPassed = true;
   }
   if (hoursDiff < 1 && minutesDiff < 2 && minutesDiff >= 0) {
@@ -85,7 +87,7 @@ export const getTimeDiff = (time: Date | string, isLocked: boolean = false): Ret
     secondsDiff,
     isFiveMinutesRemaining,
     isThirthyMinutesRemaing,
-    moveToNextDay
+    moveToNextDay,
   };
 };
 
@@ -97,14 +99,16 @@ export const stripAddress = (address: string): string => {
 };
 
 export const counterText = (number: number): string => {
-  return _.trim(number.toString()).length == 1 ? "0" + number : (number).toString()
-}
+  return _.trim(number.toString()).length == 1
+    ? "0" + number
+    : number.toString();
+};
 
 export const plantCountdownHtml = (plant: Plant) => {
   let hours: string;
   let minutes: string;
   let seconds: string;
-  if(plant.hasRecentlyPassed) {
+  if (plant.hasRecentlyPassed) {
     hours = counterText(-plant?.hoursDiff);
     minutes = counterText(-plant?.minutesDiff);
     seconds = counterText(-plant?.secondsDiff);
@@ -114,4 +118,4 @@ export const plantCountdownHtml = (plant: Plant) => {
     seconds = counterText(plant?.secondsDiff);
   }
   return `${hours}:${minutes}:${seconds}`;
-}
+};

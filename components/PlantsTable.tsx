@@ -15,7 +15,8 @@ const PlantsTable: React.FC<{
   user: firebase.User | null | undefined;
   handleLockPlant: (plant_id: string) => void;
   handleUnlock: (plant_id: string) => void;
-}> = ({ lands, plants, handleLockPlant, handleUnlock }) => {
+  handleUpdateCount: () => void;
+}> = ({ lands, plants, handleLockPlant, handleUnlock, handleUpdateCount }) => {
   return (
     <div>
       <table className="mt-5 cus1">
@@ -48,6 +49,7 @@ const PlantsTable: React.FC<{
                 plant={plant}
                 handleLockPlant={handleLockPlant}
                 handleUnlock={handleUnlock}
+                handleUpdateCount={handleUpdateCount}
               />
             );
           })}

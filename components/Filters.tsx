@@ -15,7 +15,7 @@ const Filters: React.FC<{
   PaginationField,
   RealTimeField,
   stickToBottom,
-}) => {
+}) => {  
   return (
     <div
       className={`flex justify-end mt-3 space-x-4 items-center z-30 ${

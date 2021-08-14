@@ -29,6 +29,8 @@ const PerLandsTable: React.FC<PerLandTableProps> = ({
 
   useEffect(() => {
     handlePagination(page);
+    console.log('rerendered');
+    
   }, [page, perPage, isLoaded]);
 
   const handlePagination = (page_value: number): void => {

@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
+import _ from "lodash";
+import React, { useState } from "react";
 
 const Paginations: React.FC<{
   page: number;
@@ -6,6 +7,7 @@ const Paginations: React.FC<{
   perPage: number;
   totalLands: number;
 }> = ({ page, handlePagination, perPage, totalLands }) => {
+  const [localPage, setLocalPage] = useState(page)
   let totalLandPages: number = totalLands / perPage;
   let firstNavs: string[] = [];
   let lastNavs: string[] = [];
@@ -42,9 +44,28 @@ const Paginations: React.FC<{
     });
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value as unknown as number;
+    if(value > totalLandPages) {
+      value = totalLandPages;
+    } else if(value < 1) {
+      value = 1;
+    }
+    setLocalPage(value);
+    console.log('value', value);
+    
+    handlePaginationInputChange(value)
+  }
+
+  const handlePaginationInputChange = _.debounce((value) => {
+    console.log(value);
+    
+    handlePagination(value)
+  } , 1000);
+
   return (
     <div className="flex justify-center">
-      <ul className="flex space-x-3 justify-center my-10 pag-b">
+      <ul className="flex items-center justify-center my-10 pag-b space-x-3">
         <li>
           <a
             className={`border cursor-pointer flex h-8 items-center justify-center rounded w-12 ${
@@ -65,10 +86,11 @@ const Paginations: React.FC<{
             Prev
           </a>
         </li>
-        {!splitNavs && displayNavItems(paginationItems)}
-        {splitNavs && displayNavItems(firstNavs)}
-        {splitNavs && <div>...</div>}
-        {splitNavs && displayNavItems(lastNavs)}
+        <li>
+          <div className="flex items-center pager rounded">
+            <input className="w-12 p-1 rounded-bl rounded-tl" type="number" value={localPage} max={totalLandPages} step="1" onChange={handleChange} /> <span className="px-2">/ {totalLandPages}</span>
+          </div>
+        </li>
         <li>
           <a
             className={`border cursor-pointer flex h-8 items-center justify-center rounded w-12 ${
