@@ -9,12 +9,15 @@ import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const routers = useRouter();
+  const userData = useUserData();
 
   useEffect(() => {
     if(process.env.NODE_ENV === 'production') {
       const logEvent = (url: string) => {
         analytics().setCurrentScreen(url);
         analytics().logEvent('screen_view');
+        analytics().setUserId(userData.user?.uid as string);
+        analytics().setUserProperties({ displayName: userData.user?.displayName, email: userData.user?.email, uid: userData.user?.uid});
       }
 
       routers.events.on('routeChangeComplete', logEvent);
@@ -28,7 +31,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
     
   }, [])
-  const userData = useUserData();
   return (
     <UserContext.Provider value={userData}>
       <Navbar />
