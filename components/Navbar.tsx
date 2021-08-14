@@ -45,11 +45,11 @@ const Navbar = () => {
         )}
 
         {/* user is not signed OR has not created username */}
-        {!user && (
+        {/* {!user && (
           <li>
             <Google />
           </li>
-        )}
+        )} */}
       </ul>
     </nav>
   );

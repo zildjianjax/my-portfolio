@@ -14,6 +14,7 @@ import Filters from "../components/Filters";
 import AccountSwitcher from "../components/AccountSwitcher";
 import PerLandsTable from "../components/PerLandsTable";
 import PerPlantsTable from "../components/PerPlantsTable";
+import Google from "../components/Authentication/Google";
 
 export default function Home() {
   const [lands, setLands] = useState({});
@@ -83,7 +84,7 @@ export default function Home() {
           <title>My Portfolio</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <AuthCheck>
+        <AuthCheck fallback={<Google />}>
           <div className="container mx-auto">
             <br />
             <AdminCheck>
@@ -92,8 +93,18 @@ export default function Home() {
                   Sync Data
                 </button>
                 <div className="flex items-center space-x-3 text-white">
-                  <p>Total Lands: <span className="font-bold">{Object.keys(lands).length}</span></p>
-                  <p>Total Plants:  <span className="font-bold">{Object.keys(plants).length}</span></p>
+                  <p>
+                    Total Lands:{" "}
+                    <span className="font-bold">
+                      {Object.keys(lands).length}
+                    </span>
+                  </p>
+                  <p>
+                    Total Plants:{" "}
+                    <span className="font-bold">
+                      {Object.keys(plants).length}
+                    </span>
+                  </p>
                 </div>
               </div>
               {/* <Summary /> */}
