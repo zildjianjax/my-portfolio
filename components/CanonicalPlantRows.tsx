@@ -35,7 +35,7 @@ const CanonicalPlantRows: React.FC<{
           />
           <div>
             <a
-              href={`https://marketplace.plantvsundead.com/farm/other/${land.address}`}
+              href={`https://marketplace.plantvsundead.com/marketplace/plant#/farm/other/${land.address}`}
               target="_blank"
               rel="noreferrer"
               className="text-blue-500 underline"
