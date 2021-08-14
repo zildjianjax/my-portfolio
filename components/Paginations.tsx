@@ -88,7 +88,7 @@ const Paginations: React.FC<{
         </li>
         <li>
           <div className="flex items-center pager rounded">
-            <input className="w-12 p-1 rounded-bl rounded-tl" type="number" value={localPage} max={totalLandPages} step="1" onChange={handleChange} /> <span className="px-2">/ {totalLandPages}</span>
+            <input className="w-12 p-1 rounded-bl rounded-tl" type="number" value={localPage} max={totalLandPages} step="1" onChange={handleChange} /> <span className="px-3"> {totalLandPages}</span>
           </div>
         </li>
         <li>

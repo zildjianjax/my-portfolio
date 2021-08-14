@@ -5,7 +5,7 @@ import { Common, Plant } from "../lib/interface";
 
 const PlantTimer: React.FC<{
   plant: Plant;
-  handleUpdateCount: () => void;
+  handleUpdateCount?: () => void;
 }> = ({ plant, handleUpdateCount }) => {
   const [timer, steTimer] = useState<number>(0);
   let interval: { current: NodeJS.Timeout | null } = useRef(null);
@@ -18,7 +18,7 @@ const PlantTimer: React.FC<{
 
     if (updatedPlant.moveToNextDay != plant.moveToNextDay || updatedPlant.isFiveMinutesRemaining != plant.isFiveMinutesRemaining ||
       updatedPlant.hasRecentlyPassed != plant.hasRecentlyPassed) {
-      handleUpdateCount();
+        handleUpdateCount && handleUpdateCount();
     }
 
     setDisplay(displayTimer(updatedPlant));
