@@ -30,7 +30,7 @@ const Paginations: React.FC<{
     return items.map((p) => {
       let page_index = parseInt(p) + 1;
       return (
-        <li key={page_index}>
+        <li key={page_index} className="hidden lg:block">
           <a
             className={`cursor-pointer flex h-8 items-center justify-center rounded w-8 ${
               page_index == page && "clicked"
@@ -83,7 +83,11 @@ const Paginations: React.FC<{
             Prev
           </a>
         </li>
-        <li>
+        {!splitNavs && displayNavItems(paginationItems)}
+        {splitNavs && displayNavItems(firstNavs)}
+        {splitNavs && <div className="hidden lg:block">...</div>}
+        {splitNavs && displayNavItems(lastNavs)}
+        <li className="block lg:hidden">
           <div className="flex items-center pager rounded">
             <input className="w-12 p-1 rounded-bl rounded-tl" type="number" value={localPage} max={totalLandPages} step="1" onChange={handleChange} /> <span className="px-3"> {totalLandPages}</span>
           </div>

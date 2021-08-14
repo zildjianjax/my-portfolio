@@ -19,7 +19,7 @@ const Filters: React.FC<{
   return (
     <div
       className={`flex justify-end mt-3 space-x-4 items-center z-30 ${
-        stickToBottom && "sticky bottom-0"
+        stickToBottom && "sticky bottom-0 flex-wrap-reverse lg:flex-nowrap"
       }`}
     >
       {PaginationField && <PaginationField />}

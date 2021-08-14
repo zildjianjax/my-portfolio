@@ -14,7 +14,7 @@ const LandsTable: React.FC<{
   user: firebase.User | null | undefined;
 }> = ({ lands, plants, user }) => {
   return (
-    <div>
+    <div className="overflow-x-auto">
       <table className="mt-5 cus1">
         <thead className="text-center">
           <tr>

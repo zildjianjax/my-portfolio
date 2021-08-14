@@ -18,7 +18,7 @@ const PlantsTable: React.FC<{
   handleUpdateCount: () => void;
 }> = ({ lands, plants, handleLockPlant, handleUnlock, handleUpdateCount }) => {
   return (
-    <div>
+    <div className="overflow-x-auto">
       <table className="mt-5 cus1">
         <thead className="text-center z-30">
           <tr>
