@@ -1,6 +1,6 @@
 import _ from "lodash";
 import moment from "moment";
-import { Plant } from "./interface";
+import { CommonCollection, Land, Plant } from "./interface";
 
 type ReturnDate = {
   differenceToNextTime: Date | string;
@@ -57,8 +57,12 @@ export const getTimeDiff = (
         moveToNextDay = true;
       }
     }
-  } else {    
-    if (startTime.isAfter(endTime) && hourDiff >= crowHours && minuteDiff >= 5) {
+  } else {
+    if (
+      startTime.isAfter(endTime) &&
+      hourDiff >= crowHours &&
+      minuteDiff >= 5
+    ) {
       endTime.add(1, "days");
       moveToNextDay = true;
     }
@@ -127,4 +131,28 @@ export const plantCountdownHtml = (plant: Plant) => {
     seconds = counterText(plant?.secondsDiff);
   }
   return `${hours}:${minutes}:${seconds}`;
+};
+
+export const filterLandPlants = (
+  land: Land,
+  plants: CommonCollection<Plant>
+): Plant[] => {
+  return Object.values(plants).filter(
+    (pl) => pl.landId == land?.address
+  ) as Plant[];
+};
+
+export const getLandData = (land: Land, plants: CommonCollection<Plant>) => {
+  let filteredPlants = filterLandPlants(land, plants);
+  let totalPlants = filteredPlants.length;
+  let totalPages = totalPlants / 10;
+  if (totalPages % 1 != 0) {
+    totalPages = parseInt((totalPages as unknown) as string) + 1;
+  }
+
+  return {
+    plants: filteredPlants,
+    totalPages,
+    totalPlants,
+  };
 };

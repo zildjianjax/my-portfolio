@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import _ from "lodash";
 import LandsTable from "./LandsTable";
 import { Common, CommonCollection, Land, Plant } from "../lib/interface";
@@ -32,18 +38,27 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
   const [crow, setCrow] = useState(false);
   const [crowHours, setCrowHours] = useState(2);
   const totalLands = Object.keys(plants).length - 1;
-  const perPageOptions = [20, 50, 100];
-  const defaultCrowHours = [2, 3, 4, 5, 6];
+  const perPageOptions = useMemo(() => [20, 50, 100], []);
+  const defaultCrowHours = useMemo(() => [2, 3, 4, 5, 6], []);
 
   const [updateCount, setUpdateCount] = useState(1);
 
   useEffect(() => {
     handlePagination(page);
-  }, [page, perPage, isLoaded, realtime, plantsLocked, updateCount, crow, crowHours]);
+  }, [
+    page,
+    perPage,
+    isLoaded,
+    realtime,
+    plantsLocked,
+    updateCount,
+    crow,
+    crowHours,
+  ]);
 
   const handlePagination = (page_value: number): void => {
     setPage(page_value);
-
+    
     let landPlantsArray: Plant[] | Common[] = Object.values(plants) || [];
 
     landPlantsArray = landPlantsArray.map((plant: Plant | Common):
@@ -143,7 +158,11 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
                 }
                 value={crowHours}
               >
-                {defaultCrowHours.map(hour => <option key={hour} value={hour}>{hour}</option>)}
+                {defaultCrowHours.map((hour) => (
+                  <option key={hour} value={hour}>
+                    {hour}
+                  </option>
+                ))}
               </select>
             )}
           </div>
@@ -151,6 +170,7 @@ const PerPlantsTable: React.FC<PerPlantsTableProps> = ({
       </AdminCheck>
     );
   };
+
   return (
     <>
       <Filters

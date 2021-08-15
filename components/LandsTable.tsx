@@ -1,18 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import firebase from "firebase";
 import {
   CommonCollection,
+  Land,
   Land as LandInterface,
   Plant,
 } from "../lib/interface";
 import LandRow from "./LandRow";
 import AdminCheck from "./AdminCheck";
+import LandPropertiesModal from "./LandPropertiesModal";
+import { filterLandPlants, getLandData } from "../lib/helpers";
 
 const LandsTable: React.FC<{
   lands: CommonCollection<LandInterface>;
   plants: CommonCollection<Plant>;
   user: firebase.User | null | undefined;
 }> = ({ lands, plants, user }) => {
+  const [isLandPropertiesActive, setIsLandPropertiesActive] = useState(false);
+  const [selectedLand, setSelectedLand] = useState<Land | null>(null);
+
+  const handleSelectedLand = (land: Land) => {
+    setIsLandPropertiesActive(true);
+    setSelectedLand(land);
+  };
   return (
     <div className="overflow-x-auto">
       <table className="mt-5 cus1">
@@ -43,10 +53,19 @@ const LandsTable: React.FC<{
               land={land}
               plants={plants}
               user={user}
+              handleSelectedLand={handleSelectedLand}
             />
           ))}
         </tbody>
       </table>
+      <AdminCheck>
+        <LandPropertiesModal
+          isActive={isLandPropertiesActive}
+          land={selectedLand as Land}
+          plantData={getLandData(selectedLand as Land, plants)}
+          handleClose={() => setIsLandPropertiesActive(!isLandPropertiesActive)}
+        />
+      </AdminCheck>
     </div>
   );
 };

@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import {
   Common,
   CommonCollection,
+  Land,
   Land as LandInterface,
   Plant,
 } from "../lib/interface";
 import AddPlant from "./AddPlant";
 import _ from "lodash";
 import firebase from "firebase";
-import { getTimeDiff, stripAddress } from "../lib/helpers";
+import { getLandData, getTimeDiff, stripAddress } from "../lib/helpers";
 import AdminCheck from "./AdminCheck";
 import PlantRow from "./PlantRow";
 
@@ -16,18 +23,22 @@ const LandRow: React.FC<{
   land: LandInterface | Common;
   plants: CommonCollection<Plant>;
   user?: firebase.User | null | undefined;
-}> = ({ land, plants }) => {
+  handleSelectedLand: (land: Land) => void;
+}> = ({ land, plants, handleSelectedLand }) => {
   const [landPlants, setLandPlants] = useState<LandInterface[] | Common[]>([]);
   const [firstRow, setFirstRow] = useState<Plant | Common>();
   const [plantCount, setPlantCount] = useState<number>(0);
   const [timer, steTimer] = useState<number>(0);
 
+  let { totalPages, totalPlants, plants: filterLandPlants } = useMemo(
+    () => getLandData(land as Land, plants),
+    [land]
+  );
+
   let interval: { current: NodeJS.Timeout | null } = useRef(null);
 
   const generateHourDiff = useCallback(() => {
-    let landPlantsArray: Plant[] | Common[] =
-      Object.values(plants).filter((plant) => plant.landId == land.address) ||
-      [];
+    let landPlantsArray: Plant[] | Common[] = filterLandPlants || [];
 
     landPlantsArray = landPlantsArray.map((plant: Plant | Common):
       | Plant
@@ -78,6 +89,16 @@ const LandRow: React.FC<{
               <span className="coorxy">
                 X: {land.x}, Y: {land.y}
               </span>
+              <AdminCheck>
+                <p>Total Pages: {totalPages}</p>
+                <p>Total Plants: {totalPlants}</p>
+                <a
+                  className="cursor-pointer underline"
+                  onClick={() => handleSelectedLand(land as Land)}
+                >
+                  View Plants
+                </a>
+              </AdminCheck>
             </div>
             <AdminCheck>
               <AddPlant landId={land.id} />
@@ -92,7 +113,7 @@ const LandRow: React.FC<{
             key={plant?.readableId}
             className={`${plant?.isFiveMinutesRemaining && "in-one-min"} ${
               plant?.hasRecentlyPassed && "has-passed"
-            } ${index + 1 == landPlants.length && 'lastplant'}`}
+            } ${index + 1 == landPlants.length && "lastplant"}`}
           >
             <PlantRow plant={plant as Plant} />
           </tr>
