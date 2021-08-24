@@ -20,6 +20,10 @@ const CanonicalPlantRows: React.FC<{
   crow,
   crowHours,
 }) => {
+  let landUrl = `https://marketplace.plantvsundead.com/marketplace/plant#/farm/other/${land.address}`;
+  if(plant.page > 1) {
+    landUrl += `?page=${plant.page}`
+  }
   return (
     <tr
       className={`${plant?.isFiveMinutesRemaining && "in-one-min"} ${
@@ -35,7 +39,7 @@ const CanonicalPlantRows: React.FC<{
           />
           <div>
             <a
-              href={`https://marketplace.plantvsundead.com/marketplace/plant#/farm/other/${land.address}`}
+              href={landUrl}
               target="_blank"
               rel="noreferrer"
               className="text-blue-500 underline"
