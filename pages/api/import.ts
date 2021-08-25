@@ -13,7 +13,7 @@ export default async function handler(
   let { user, json, page } = req.body;
   let pvuResponse = JSON.parse(json);
   const batch = firestore.batch();
-  pvuResponse.data.forEach(async (plant: Plant, index: number) => {
+  pvuResponse.data.forEach(async (plant: Plant, index: number) => {    
     const landRef = firestore.doc(`users/${user}/lands/${plant.ownerId}`);
     batch.set(landRef, {
       address: plant.ownerId,
@@ -25,6 +25,7 @@ export default async function handler(
     });
 
     const plantRef = firestore.doc(`users/${user}/lands/${plant.ownerId}/plants/${plant.plantId}`);
+    let waterReset = plant.activeTools.filter((tool: { type: string }) => tool.type == "WATER")[0];
     batch.set(plantRef, {
       landId: plant.ownerId,
       userId: user,
@@ -32,7 +33,7 @@ export default async function handler(
       card: index + 1,
       element: plant.plantElement,
       readableId: plant.plantId,
-      resetTime: plant.startTime,
+      resetTime: waterReset.endTime,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     });
