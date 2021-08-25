@@ -53,8 +53,8 @@ export const getTimeDiff = (
   let isThirthyMinutesRemaing = false;
 
   if (!crow) {
-    if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 1) {
-      if (!(isLocked && minuteDiff < 3)) {
+    if (startTime.isAfter(endTime) && hourDiff >= 0 && minuteDiff >= 3) {
+      if (!(isLocked && minuteDiff < 5)) {
         endTime.add(1, "days");
         moveToNextDay = true;
       }
