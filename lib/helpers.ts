@@ -39,8 +39,10 @@ export const getTimeDiff = (
 
   let timeToHours = timeToMoment.utc().format("HH:mm:ss");
 
-  const startTime = moment.utc(utcTimeNow.format("HH:mm:ss"), "HH:mm a");
-  const endTime = moment.utc(timeToHours, "HH:mm:ss a");
+  // const startTime = moment.utc(utcTimeNow.format("HH:mm:ss"), "HH:mm a");
+  // const endTime = moment.utc(timeToHours, "HH:mm:ss a");
+  const startTime = utcTimeNow.clone();
+  const endTime = moment.utc(time);
 
   const hourDiff = startTime.diff(endTime, "hours");
   const minuteDiff = startTime.diff(endTime, "minutes");

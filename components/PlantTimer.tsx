@@ -36,7 +36,7 @@ const PlantTimer: React.FC<{
   }, [timer]);
 
   const displayTimer = (plant: Plant | Common | undefined) => {
-    return `${moment(plant?.resetTime).format("hh:mm:ss a")} (
+    return `${moment(plant?.resetTime).format("MM-DD-yyyy hh:mm:ss a")} (
       ${plant?.differenceToNextTime} ${plantCountdownHtml(plant as Plant)})`;
   };
   return <div>{display}</div>;
